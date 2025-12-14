@@ -1,0 +1,182 @@
+id,topic,category,keywords,adviceText
+iq-00001,Java Interview Question: HashMap vs Hashtable,interview-question,java|hashmap|hashtable,HashMap is non-synchronized and allows null keys while Hashtable is synchronized and does not allow nulls.
+iq-00002,Java Interview Question: final keyword,interview-question,java|final|keyword,Final is used to restrict modification for variables methods and classes.
+iq-00003,Java Interview Question: JVM vs JRE vs JDK,interview-question,java|jvm|jre|jdk,JVM runs bytecode JRE provides libraries and JDK provides development tools.
+iq-00004,Java Interview Question: OOP principles,interview-question,java|oops|concepts,The four OOP principles are encapsulation inheritance polymorphism and abstraction.
+iq-00005,Java Interview Question: Exception handling,interview-question,java|exception|try-catch,Use try catch blocks to handle runtime errors gracefully.
+iq-00006,Java Interview Question: Array vs ArrayList,interview-question,java|array|arraylist,Array is fixed size while ArrayList is dynamic.
+iq-00007,Java Interview Question: String vs StringBuilder,interview-question,java|string|stringbuilder,String is immutable while StringBuilder is mutable and faster.
+iq-00008,Java Interview Question: Interface vs Abstract class,interview-question,java|interface|abstract,Interfaces support multiple inheritance while abstract classes do not.
+iq-00009,Java Interview Question: Multithreading,interview-question,java|threads|concurrency,Multithreading allows concurrent execution of tasks.
+iq-00010,Java Interview Question: Garbage Collection,interview-question,java|gc|memory,Garbage collection automatically frees unused memory.
+
+iq-00011,Java Interview Question: equals vs hashCode,interview-question,java|equals|hashcode,equals checks logical equality while hashCode supports hashing.
+iq-00012,Java Interview Question: Checked vs Unchecked Exception,interview-question,java|exceptions,Checked exceptions are compile-time unchecked are runtime.
+iq-00013,Java Interview Question: Static keyword,interview-question,java|static,Static members belong to class not object.
+iq-00014,Java Interview Question: Serialization,interview-question,java|serialization,Serialization converts object into byte stream.
+iq-00015,Java Interview Question: Volatile keyword,interview-question,java|volatile,Volatile ensures visibility across threads.
+iq-00016,Java Interview Question: Singleton pattern,interview-question,java|design pattern|singleton,Singleton ensures only one instance exists.
+iq-00017,Java Interview Question: Stream API,interview-question,java|stream|lambda,Streams support functional-style operations.
+iq-00018,Java Interview Question: Lambda expression,interview-question,java|lambda,Lambda provides concise implementation of interfaces.
+iq-00019,Java Interview Question: Comparator vs Comparable,interview-question,java|comparator|comparable,Comparable defines natural ordering Comparator custom ordering.
+iq-00020,Java Interview Question: ConcurrentHashMap,interview-question,java|concurrency,ConcurrentHashMap is thread-safe and efficient.
+
+iq-00021,Python Interview Question: List vs Tuple,interview-question,python|list|tuple,Lists are mutable while tuples are immutable.
+iq-00022,Python Interview Question: GIL,interview-question,python|gil|threading,GIL prevents parallel thread execution.
+iq-00023,Python Interview Question: Decorators,interview-question,python|decorators,Decorators modify function behavior.
+iq-00024,Python Interview Question: Lambda functions,interview-question,python|lambda,Lambda functions are anonymous functions.
+iq-00025,Python Interview Question: Dictionary,interview-question,python|dict,Dictionaries store key value pairs.
+iq-00026,Python Interview Question: List comprehension,interview-question,python|list comprehension,List comprehension provides concise loops.
+iq-00027,Python Interview Question: Mutable vs Immutable,interview-question,python|mutable|immutable,Mutable objects can change immutable cannot.
+iq-00028,Python Interview Question: Exception handling,interview-question,python|exceptions,Use try except to handle errors.
+iq-00029,Python Interview Question: Virtual environment,interview-question,python|venv,Virtual env isolates dependencies.
+iq-00030,Python Interview Question: PIP,interview-question,python|pip,PIP installs Python packages.
+
+iq-00031,SQL Interview Question: INNER JOIN,interview-question,sql|join|inner,INNER JOIN returns matching rows.
+iq-00032,SQL Interview Question: LEFT JOIN,interview-question,sql|join|left,LEFT JOIN returns all left rows.
+iq-00033,SQL Interview Question: RIGHT JOIN,interview-question,sql|join|right,RIGHT JOIN returns all right rows.
+iq-00034,SQL Interview Question: FULL JOIN,interview-question,sql|join|full,FULL JOIN returns all rows.
+iq-00035,SQL Interview Question: Normalization,interview-question,sql|normalization,Normalization reduces redundancy.
+iq-00036,SQL Interview Question: Index,interview-question,sql|index,Index improves performance.
+iq-00037,SQL Interview Question: Primary Key,interview-question,sql|primary key,Primary key uniquely identifies record.
+iq-00038,SQL Interview Question: Foreign Key,interview-question,sql|foreign key,Foreign key links tables.
+iq-00039,SQL Interview Question: ACID properties,interview-question,sql|acid,ACID ensures reliable transactions.
+iq-00040,SQL Interview Question: GROUP BY,interview-question,sql|group by,GROUP BY aggregates data.
+
+iq-00041,HR Interview Question: Strengths,interview-question,hr|strengths,Highlight strengths with examples.
+iq-00042,HR Interview Question: Weakness,interview-question,hr|weakness,Mention weakness with improvement.
+iq-00043,HR Interview Question: Why should we hire you,interview-question,hr|why hire,Align skills with role.
+iq-00044,HR Interview Question: Career goals,interview-question,hr|career goals,Explain realistic goals.
+iq-00045,HR Interview Question: Teamwork,interview-question,hr|teamwork,Show collaboration skills.
+iq-00046,HR Interview Question: Conflict handling,interview-question,hr|conflict,Explain calm resolution.
+iq-00047,HR Interview Question: Leadership,interview-question,hr|leadership,Demonstrate initiative.
+iq-00048,HR Interview Question: Time management,interview-question,hr|time management,Explain prioritization.
+iq-00049,HR Interview Question: Stress handling,interview-question,hr|stress,Discuss coping strategies.
+iq-00050,HR Interview Question: Failure,interview-question,hr|failure,Explain lessons learned.
+
+da-01,Excel: VLOOKUP,interview-question,excel|lookup,Searches vertically.
+da-02,Excel: HLOOKUP,interview-question,excel|lookup,Searches horizontally.
+da-03,Excel: Pivot Table,interview-question,excel|pivot,Summarizes data.
+da-04,Excel: Conditional Formatting,interview-question,excel|format,Highlights data.
+da-05,Excel: COUNTIF,interview-question,excel|countif,Counts conditionally.
+da-06,Excel: IF Function,interview-question,excel|if,Logical evaluation.
+da-07,Excel: Charts,interview-question,excel|charts,Visualize data.
+da-08,Power BI: Dashboard,interview-question,powerbi|dashboard,Interactive visuals.
+da-09,Power BI: DAX,interview-question,powerbi|dax,Data analysis expressions.
+da-10,Power BI: Data Model,interview-question,powerbi|model,Relationships setup.
+da-11,Power BI: Power Query,interview-question,powerbi|query,Data cleaning.
+da-12,Power BI: Measures,interview-question,powerbi|measures,Calculated fields.
+da-13,Power BI: Reports,interview-question,powerbi|reports,Visual representation.
+da-14,Data Analysis: KPI,interview-question,data|kpi,Key performance indicators.
+da-15,Data Analysis: ETL,interview-question,data|etl,Extract transform load.
+da-16,Data Analysis: Cleaning,interview-question,data|cleaning,Fix missing data.
+da-17,Data Analysis: Trends,interview-question,data|trends,Identify patterns.
+da-18,Data Analysis: Visualization,interview-question,data|visualization,Graphical insights.
+da-19,Data Analysis: Descriptive Stats,interview-question,data|statistics,Mean median mode.
+da-20,Data Analysis: Reporting,interview-question,data|reporting,Present findings.
+
+hr-01,HR: Strengths,interview-question,hr|strengths,Match strengths to role.
+hr-02,HR: Weakness,interview-question,hr|weakness,Show improvement steps.
+hr-03,HR: Why should we hire you,interview-question,hr|hire,Align skills with job.
+hr-04,HR: Career Goals,interview-question,hr|goals,Show long term vision.
+hr-05,HR: Teamwork,interview-question,hr|teamwork,Explain collaboration.
+hr-06,HR: Conflict Handling,interview-question,hr|conflict,Stay calm and solution-focused.
+hr-07,HR: Leadership,interview-question,hr|leadership,Demonstrate initiative.
+hr-08,HR: Time Management,interview-question,hr|time,Prioritize tasks.
+hr-09,HR: Stress Management,interview-question,hr|stress,Explain coping methods.
+hr-10,HR: Failure,interview-question,hr|failure,Share learning outcome.
+hr-11,HR: Motivation,interview-question,hr|motivation,Explain what drives you.
+hr-12,HR: Communication,interview-question,hr|communication,Clear and concise.
+hr-13,HR: Adaptability,interview-question,hr|adaptability,Show flexibility.
+hr-14,HR: Problem Solving,interview-question,hr|problem solving,Explain approach.
+hr-15,HR: Decision Making,interview-question,hr|decision,Use data-driven choices.
+hr-16,HR: Work Ethic,interview-question,hr|work ethic,Show dedication.
+hr-17,HR: Handling Feedback,interview-question,hr|feedback,Accept and improve.
+hr-18,HR: Remote Work,interview-question,hr|remote,Explain discipline.
+hr-19,HR: Company Knowledge,interview-question,hr|company,Research beforehand.
+hr-20,HR: Salary Expectation,interview-question,hr|salary,Give flexible range.
+
+pc-java-001,"Question: What are OOP principles in Java? Answer: The four principles are Encapsulation, Abstraction, Inheritance, and Polymorphism. They help build reusable and maintainable applications.",Java OOP,interview-question,java|oops|core,Java,Easy,career_compass
+pc-java-002,"Question: Difference between JVM JRE and JDK? Answer: JVM executes bytecode, JRE provides runtime libraries, and JDK includes development tools.",Java Basics,interview-question,java|jvm|jre|jdk,Java,Easy,career_compass
+pc-java-003,"Question: HashMap vs Hashtable? Answer: HashMap is non-synchronized and allows nulls, while Hashtable is synchronized and does not allow null keys or values.",Java Collections,interview-question,java|hashmap|hashtable,Java,Easy,career_compass
+pc-java-004,"Question: Array vs ArrayList? Answer: Arrays are fixed size while ArrayLists are dynamic and part of the Collections framework.",Java Collections,interview-question,java|array|arraylist,Java,Easy,career_compass
+pc-java-005,"Question: String vs StringBuilder? Answer: String is immutable while StringBuilder is mutable and faster for modifications.",Java Strings,interview-question,java|string|stringbuilder,Java,Easy,career_compass
+pc-java-006,"Question: What is exception handling? Answer: Exception handling uses try catch blocks to handle runtime errors gracefully.",Java Exceptions,interview-question,java|exception,Java,Easy,career_compass
+pc-java-007,"Question: Checked vs unchecked exceptions? Answer: Checked exceptions occur at compile time while unchecked occur at runtime.",Java Exceptions,interview-question,java|exceptions,Java,Easy,career_compass
+pc-java-008,"Question: Interface vs abstract class? Answer: Interfaces support multiple inheritance while abstract classes do not.",Java OOP,interview-question,java|interface|abstract,Java,Easy,career_compass
+pc-java-009,"Question: What is multithreading? Answer: Multithreading allows concurrent execution of multiple threads.",Java Threads,interview-question,java|thread,Java,Easy,career_compass
+pc-java-010,"Question: What is garbage collection? Answer: Garbage collection automatically frees unused memory.",Java Memory,interview-question,java|gc,Java,Easy,career_compass
+pc-java-011,"Question: equals vs hashCode? Answer: equals checks logical equality while hashCode is used in hashing collections.",Java Core,interview-question,java|equals|hashcode,Java,Medium,career_compass
+pc-java-012,"Question: Static keyword? Answer: Static members belong to the class rather than objects.",Java Core,interview-question,java|static,Java,Easy,career_compass
+pc-java-013,"Question: Final keyword? Answer: Final prevents modification of variables methods or classes.",Java Core,interview-question,java|final,Java,Easy,career_compass
+pc-java-014,"Question: Lambda expression? Answer: Lambda expressions provide concise implementation of functional interfaces.",Java Advanced,interview-question,java|lambda,Java,Medium,career_compass
+pc-java-015,"Question: Stream API? Answer: Streams enable functional-style operations on collections.",Java Advanced,interview-question,java|stream,Java,Medium,career_compass
+pc-java-016,"Question: Dependency Injection in Spring? Answer: DI allows Spring to manage object creation and dependencies.",Spring Core,interview-question,java|spring|di,Java,Medium,career_compass
+pc-java-017,"Question: What is @RestController? Answer: It combines @Controller and @ResponseBody to create REST APIs.",Spring MVC,interview-question,java|spring|rest,Java,Easy,career_compass
+pc-java-018,"Question: What is JPA? Answer: JPA simplifies database operations using ORM.",Spring Data,interview-question,java|jpa,Java,Medium,career_compass
+pc-java-019,"Question: What are microservices? Answer: Microservices split applications into independently deployable services.",Spring Architecture,interview-question,java|microservices,Java,Medium,career_compass
+pc-java-020,"Question: What is Spring Boot Actuator? Answer: Actuator provides application health and metrics.",Spring Boot,interview-question,java|actuator,Java,Easy,career_compass
+
+pc-python-001,"Question: List vs tuple? Answer: Lists are mutable while tuples are immutable.",Python Basics,interview-question,python|list|tuple,Python,Easy,career_compass
+pc-python-002,"Question: What is a dictionary? Answer: A dictionary stores key value pairs.",Python Basics,interview-question,python|dict,Python,Easy,career_compass
+pc-python-003,"Question: Lambda function? Answer: A lambda is an anonymous single-line function.",Python Functions,interview-question,python|lambda,Python,Easy,career_compass
+pc-python-004,"Question: What are decorators? Answer: Decorators modify function behavior without changing code.",Python Advanced,interview-question,python|decorator,Python,Medium,career_compass
+pc-python-005,"Question: Exception handling in Python? Answer: try except blocks handle runtime errors.",Python Core,interview-question,python|exception,Python,Easy,career_compass
+pc-python-006,"Question: Mutable vs immutable objects? Answer: Mutable objects can change while immutable cannot.",Python Core,interview-question,python|mutable,Python,Easy,career_compass
+pc-python-007,"Question: List comprehension? Answer: Compact syntax for creating lists.",Python Core,interview-question,python|list comprehension,Python,Easy,career_compass
+pc-python-008,"Question: What is GIL? Answer: GIL prevents multiple threads from executing Python bytecode simultaneously.",Python Internals,interview-question,python|gil,Python,Medium,career_compass
+pc-python-009,"Question: Python OOP? Answer: Python supports classes inheritance and polymorphism.",Python OOP,interview-question,python|oops,Python,Easy,career_compass
+pc-python-010,"Question: Virtual environment? Answer: Isolates project dependencies.",Python Tools,interview-question,python|venv,Python,Easy,career_compass
+pc-python-011,"Question: What is pip? Answer: Pip installs Python packages.",Python Tools,interview-question,python|pip,Python,Easy,career_compass
+pc-python-012,"Question: File handling? Answer: Python supports reading and writing files using open().",Python IO,interview-question,python|file,Python,Easy,career_compass
+pc-python-013,"Question: Generator? Answer: A generator yields values using yield keyword.",Python Advanced,interview-question,python|generator,Python,Medium,career_compass
+pc-python-014,"Question: Iterator? Answer: Iterators traverse elements one at a time.",Python Core,interview-question,python|iterator,Python,Easy,career_compass
+pc-python-015,"Question: Module? Answer: A module is a file containing Python code.",Python Core,interview-question,python|module,Python,Easy,career_compass
+pc-python-016,"Question: Package? Answer: A package is a collection of modules.",Python Core,interview-question,python|package,Python,Easy,career_compass
+pc-python-017,"Question: map vs filter? Answer: map transforms data filter selects data.",Python Functional,interview-question,python|map|filter,Python,Medium,career_compass
+pc-python-018,"Question: Python scripting? Answer: Scripting automates repetitive tasks.",Python Scripting,interview-question,python|script,Python,Easy,career_compass
+pc-python-019,"Question: Common exceptions? Answer: IndexError KeyError TypeError are common.",Python Exceptions,interview-question,python|errors,Python,Easy,career_compass
+pc-python-020,"Question: __init__ method? Answer: Initializes object state.",Python OOP,interview-question,python|constructor,Python,Easy,career_compass
+
+pc-web-001,"Question: What is HTML? Answer: HTML is a markup language used to structure web content.",HTML Basics,interview-question,html|basics,Web Dev,Easy,career_compass
+pc-web-002,"Question: Difference between HTML and HTML5? Answer: HTML5 supports multimedia and semantic elements.",HTML Advanced,interview-question,html|html5,Web Dev,Easy,career_compass
+pc-web-003,"Question: What is CSS? Answer: CSS styles and layouts web pages.",CSS Basics,interview-question,css|basics,Web Dev,Easy,career_compass
+pc-web-004,"Question: What is the CSS box model? Answer: It consists of content padding border and margin.",CSS Layout,interview-question,css|box model,Web Dev,Easy,career_compass
+pc-web-005,"Question: Inline vs block elements? Answer: Inline elements don’t start new lines block elements do.",HTML Elements,interview-question,html|elements,Web Dev,Easy,career_compass
+pc-web-006,"Question: What is JavaScript? Answer: JavaScript adds interactivity to web pages.",JavaScript Basics,interview-question,javascript|basics,Web Dev,Easy,career_compass
+pc-web-007,"Question: let vs var vs const? Answer: let and const have block scope var does not.",JavaScript Scope,interview-question,javascript|scope,Web Dev,Easy,career_compass
+pc-web-008,"Question: What is DOM? Answer: DOM represents the document structure as objects.",JavaScript DOM,interview-question,javascript|dom,Web Dev,Easy,career_compass
+pc-web-009,"Question: What is event handling? Answer: Handling user actions like click or submit.",JavaScript Events,interview-question,javascript|events,Web Dev,Easy,career_compass
+pc-web-010,"Question: What is closure? Answer: Closure allows access to outer function variables.",JavaScript Advanced,interview-question,javascript|closure,Web Dev,Medium,career_compass
+pc-web-011,"Question: What is responsive design? Answer: Design adapts to different screen sizes.",Web Design,interview-question,responsive|design,Web Dev,Easy,career_compass
+pc-web-012,"Question: What is Flexbox? Answer: Flexbox helps align items in one dimension.",CSS Flexbox,interview-question,css|flexbox,Web Dev,Easy,career_compass
+pc-web-013,"Question: What is Grid? Answer: CSS Grid supports two-dimensional layouts.",CSS Grid,interview-question,css|grid,Web Dev,Easy,career_compass
+pc-web-014,"Question: What is REST API? Answer: REST uses HTTP methods for communication.",Web API,interview-question,rest|api,Web Dev,Easy,career_compass
+pc-web-015,"Question: GET vs POST? Answer: GET retrieves data POST sends data.",HTTP Methods,interview-question,http|get|post,Web Dev,Easy,career_compass
+pc-web-016,"Question: What is JSON? Answer: JSON is a lightweight data format.",Web Data,interview-question,json|data,Web Dev,Easy,career_compass
+pc-web-017,"Question: What is CORS? Answer: CORS controls cross-origin requests.",Web Security,interview-question,cors|security,Web Dev,Medium,career_compass
+pc-web-018,"Question: What is SEO? Answer: SEO improves website visibility.",Web Optimization,interview-question,seo,Web Dev,Easy,career_compass
+pc-web-019,"Question: What is SPA? Answer: SPA loads content dynamically without reloads.",Web Architecture,interview-question,spa|javascript,Web Dev,Medium,career_compass
+pc-web-020,"Question: What is Web Hosting? Answer: Hosting stores website files on servers.",Web Basics,interview-question,hosting|web,Web Dev,Easy,career_compass
+
+pc-devops-001,"Question: What is DevOps? Answer: DevOps combines development and operations for faster delivery.",DevOps Basics,interview-question,devops|basics,DevOps,Easy,career_compass
+pc-devops-002,"Question: What is CI/CD? Answer: CI/CD automates build test and deployment.",DevOps Pipeline,interview-question,ci|cd,DevOps,Easy,career_compass
+pc-devops-003,"Question: What is Docker? Answer: Docker packages applications into containers.",Containers,interview-question,docker|container,DevOps,Easy,career_compass
+pc-devops-004,"Question: Docker image vs container? Answer: Image is template container is running instance.",Docker Concepts,interview-question,docker|image|container,DevOps,Easy,career_compass
+pc-devops-005,"Question: What is Dockerfile? Answer: Dockerfile defines how to build an image.",Docker Build,interview-question,dockerfile,DevOps,Easy,career_compass
+pc-devops-006,"Question: What is Kubernetes? Answer: Kubernetes orchestrates containers.",Kubernetes Basics,interview-question,kubernetes|k8s,DevOps,Easy,career_compass
+pc-devops-007,"Question: Pod in Kubernetes? Answer: Pod is the smallest deployable unit.",Kubernetes Core,interview-question,kubernetes|pod,DevOps,Easy,career_compass
+pc-devops-008,"Question: Service in Kubernetes? Answer: Service exposes pods.",Kubernetes Networking,interview-question,kubernetes|service,DevOps,Easy,career_compass
+pc-devops-009,"Question: Deployment in Kubernetes? Answer: Manages pod replicas.",Kubernetes Deployment,interview-question,kubernetes|deployment,DevOps,Easy,career_compass
+pc-devops-010,"Question: What is Helm? Answer: Helm is a package manager for Kubernetes.",Kubernetes Tools,interview-question,helm|kubernetes,DevOps,Medium,career_compass
+pc-devops-011,"Question: What is Git? Answer: Git is a version control system.",Version Control,interview-question,git|vcs,DevOps,Easy,career_compass
+pc-devops-012,"Question: What is Jenkins? Answer: Jenkins automates CI/CD pipelines.",CI Tools,interview-question,jenkins,DevOps,Easy,career_compass
+pc-devops-013,"Question: What is Infrastructure as Code? Answer: IaC manages infra via code.",IaC,interview-question,iac|terraform,DevOps,Medium,career_compass
+pc-devops-014,"Question: What is Terraform? Answer: Terraform provisions infrastructure.",IaC Tools,interview-question,terraform,DevOps,Medium,career_compass
+pc-devops-015,"Question: What is monitoring? Answer: Monitoring tracks system health.",Monitoring,interview-question,monitoring|metrics,DevOps,Easy,career_compass
+pc-devops-016,"Question: What is logging? Answer: Logging records application events.",Logging,interview-question,logging,DevOps,Easy,career_compass
+pc-devops-017,"Question: What is Prometheus? Answer: Prometheus collects metrics.",Monitoring Tools,interview-question,prometheus,DevOps,Medium,career_compass
+pc-devops-018,"Question: What is Grafana? Answer: Grafana visualizes metrics.",Visualization,interview-question,grafana,DevOps,Easy,career_compass
+pc-devops-019,"Question: Blue Green deployment? Answer: Uses two environments to reduce downtime.",Deployment Strategy,interview-question,blue green,DevOps,Medium,career_compass
+pc-devops-020,"Question: Rolling deployment? Answer: Updates services gradually.",Deployment Strategy,interview-question,rolling update,DevOps,Easy,career_compass
+

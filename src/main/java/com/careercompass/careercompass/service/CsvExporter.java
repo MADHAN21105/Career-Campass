@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 /**
  * CsvExporter
  * 
- * Exports RAG data, JobRoleLibrary, and SkillLibrary to CSV files
- * for easy data management and Pinecone ingestion.
+ * Exports RAG data to CSV files for easy data management and Pinecone
+ * ingestion.
+ * Legacy library files (SkillLibrary, JobRoleLibrary) have been removed in
+ * favor of CSV-based architecture.
  */
 @Service
 public class CsvExporter {

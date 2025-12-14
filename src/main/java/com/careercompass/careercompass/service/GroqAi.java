@@ -10,8 +10,18 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import com.careercompass.careercompass.service.CsvSnippetLoader;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collection;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,12 +40,57 @@ public class GroqAi {
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final PineconeVectorService pineconeVectorService;
+    private final CsvSnippetLoader csvSnippetLoader;
 
     // Small in-memory cache to avoid repeated Groq calls during same runtime
     private final Map<String, String> simpleCache = new ConcurrentHashMap<>();
 
-    public GroqAi(PineconeVectorService pineconeVectorService) {
+    // Dynamically loaded from CSV files
+    private final List<String> jobRoles = new ArrayList<>();
+    private final List<String> skills = new ArrayList<>();
+
+    public GroqAi(PineconeVectorService pineconeVectorService, CsvSnippetLoader csvSnippetLoader) {
         this.pineconeVectorService = pineconeVectorService;
+        this.csvSnippetLoader = csvSnippetLoader;
+        loadJobRolesAndSkills();
+    }
+
+    /**
+     * Load job roles and skills from CSV files at startup
+     */
+    private void loadJobRolesAndSkills() {
+        try {
+            // Load job roles from job_roles.csv
+            List<Snippets> jobRoleSnippets = csvSnippetLoader.loadFromCsv("data/job_roles.csv", false);
+            for (Snippets snippet : jobRoleSnippets) {
+                // Extract role name from topic (e.g., "Job Role: Java Developer" -> "Java
+                // Developer")
+                String topic = snippet.getTopic();
+                if (topic.startsWith("Job Role: ")) {
+                    String roleName = topic.substring("Job Role: ".length()).trim();
+                    jobRoles.add(roleName);
+                }
+            }
+            System.out.println("✅ Loaded " + jobRoles.size() + " job roles from CSV");
+
+            // Load skills from skills.csv
+            List<Snippets> skillSnippets = csvSnippetLoader.loadFromCsv("data/skills.csv", false);
+            for (Snippets snippet : skillSnippets) {
+                // Extract skill name from topic (e.g., "Skill: Java" -> "Java")
+                String topic = snippet.getTopic();
+                if (topic.startsWith("Skill: ")) {
+                    String skillName = topic.substring("Skill: ".length()).trim();
+                    skills.add(skillName);
+                }
+            }
+            System.out.println("✅ Loaded " + skills.size() + " skills from CSV");
+
+        } catch (Exception e) {
+            System.err.println("⚠️ Failed to load job roles/skills from CSV: " + e.getMessage());
+            // Fallback: add some basic entries
+            jobRoles.addAll(Arrays.asList("Software Developer", "Data Analyst", "Java Developer"));
+            skills.addAll(Arrays.asList("Java", "Python", "JavaScript", "SQL"));
+        }
     }
 
     private String safe(String s) {
@@ -399,66 +454,65 @@ public class GroqAi {
         // COVER LETTER STRUCTURE (NO %s — EVER)
         // ------------------------------------------------------------------
         String coverLetterTemplate = """
-{{NAME}}
-Phone: {{PHONE}}
-Email: {{EMAIL}}
+                {{NAME}}
+                Phone: {{PHONE}}
+                Email: {{EMAIL}}
 
-{{DATE}}
+                {{DATE}}
 
-{{HIRING_MANAGER}}
-{{COMPANY_NAME}}
+                {{HIRING_MANAGER}}
+                {{COMPANY_NAME}}
 
-Dear {{SALUTATION_NAME}},
+                Dear {{SALUTATION_NAME}},
 
-{{OPENING_PARAGRAPH}}
+                {{OPENING_PARAGRAPH}}
 
-{{BODY_PARAGRAPH_1}}
+                {{BODY_PARAGRAPH_1}}
 
-{{BODY_PARAGRAPH_2}}
+                {{BODY_PARAGRAPH_2}}
 
-{{CALL_TO_ACTION}}
+                {{CALL_TO_ACTION}}
 
-Sincerely,
-{{NAME}}
-""";
+                Sincerely,
+                {{NAME}}
+                """;
 
         // ------------------------------------------------------------------
         // AI PROMPT (NO FORMATTING TOKENS)
         // ------------------------------------------------------------------
         return """
-You are an expert Java Developer cover letter writer.
+                You are an expert Java Developer cover letter writer.
 
-GOAL:
-Generate a polished, professional cover letter using standard business
-letter formatting.
+                GOAL:
+                Generate a polished, professional cover letter using standard business
+                letter formatting.
 
-STRICT RULES:
-- Replace ALL {{PLACEHOLDERS}} in the template.
-- Do NOT leave {{ or }} in the final output.
-- Do NOT change the structure.
-- Focus on Java, Spring Boot, OOP, REST APIs, and backend development.
-- Quantify achievements where possible.
-- Keep it professional and ATS-friendly.
-- Do NOT mention AI or explanations.
+                STRICT RULES:
+                - Replace ALL {{PLACEHOLDERS}} in the template.
+                - Do NOT leave {{ or }} in the final output.
+                - Do NOT change the structure.
+                - Focus on Java, Spring Boot, OOP, REST APIs, and backend development.
+                - Quantify achievements where possible.
+                - Keep it professional and ATS-friendly.
+                - Do NOT mention AI or explanations.
 
-TEMPLATE:
-""" + coverLetterTemplate + """
+                TEMPLATE:
+                """ + coverLetterTemplate + """
 
-CANDIDATE INFORMATION:
-Name: """ + name + """
-Phone: """ + phone + """
-Email: """ + email + """
+                CANDIDATE INFORMATION:
+                Name: """ + name + """
+                Phone: """ + phone + """
+                Email: """ + email + """
 
-JOB INFORMATION:
-Job Title: """ + job + """
-Company Name: """ + company + """
-Hiring Manager: """ + hr + """
-Date: """ + today + """
+                JOB INFORMATION:
+                Job Title: """ + job + """
+                Company Name: """ + company + """
+                Hiring Manager: """ + hr + """
+                Date: """ + today + """
 
-JOB DESCRIPTION:
-""" + jd;
+                JOB DESCRIPTION:
+                """ + jd;
     }
-
 
     // ======================================================================
     // AI SKILL EXTRACTION (unchanged)
@@ -579,7 +633,7 @@ JOB DESCRIPTION:
         // 1) Roadmap mode (look for roadmap/path/how to become)
         if (q.contains("roadmap") || q.contains("career path") || q.contains("how to become")
                 || q.contains("how to become a") || q.contains("how do i become")) {
-            for (String role : JobRoleLibrary.JOB_ROLES) {
+            for (String role : jobRoles) {
                 if (q.contains(role.toLowerCase())) {
                     String out = quickRoadmap(role);
                     if (out != null && !out.isBlank())
@@ -592,7 +646,7 @@ JOB DESCRIPTION:
         // 2) Interview questions explicit request (e.g. "interview questions for data
         // analyst")
         if (q.contains("interview") || q.contains("interview questions") || q.contains("questions for")) {
-            for (String role : JobRoleLibrary.JOB_ROLES) {
+            for (String role : jobRoles) {
                 if (q.contains(role.toLowerCase())) {
                     // Provide interview questions and answers for the role
                     String cached = cacheGet("roleInterview", role);
@@ -617,7 +671,7 @@ JOB DESCRIPTION:
         }
 
         // 3) Job-role quick-guide (if user mentions a job role)
-        for (String role : JobRoleLibrary.JOB_ROLES) {
+        for (String role : jobRoles) {
             if (q.contains(role.toLowerCase())) {
                 String cached = cacheGet("jobRoleFull", role);
                 if (cached != null)
@@ -659,7 +713,7 @@ JOB DESCRIPTION:
         }
 
         // 4) Skill quick-explain + career
-        for (String skill : SkillLibrary.UNIVERSAL_SKILLS) {
+        for (String skill : skills) {
             String s = skill.toLowerCase();
             if (q.contains(s)) {
                 // Compose combined skill output
@@ -949,26 +1003,17 @@ JOB DESCRIPTION:
     }
 
     // ---------------------------
-    // Deterministic skill extract (used by MatchService fallback)
+    // Deterministic skill extract (used for resume skill detection)
     // ---------------------------
-    private static final List<String> DEFAULT_SKILLS = Arrays.asList(); // placeholder if needed
-
-    // Simple deterministic extract used when trying to infer resume skills for
-    // suggestions
     private List<String> extractSkills(String text) {
         if (text == null || text.isBlank())
             return new ArrayList<>();
         String lower = text.toLowerCase();
         Set<String> found = new LinkedHashSet<>();
-        // check SkillLibrary contents
-        for (String s : SkillLibrary.UNIVERSAL_SKILLS) {
+        // check dynamically loaded skills from CSV
+        for (String s : skills) {
             String lw = s.toLowerCase();
             if (lower.contains(lw))
-                found.add(s);
-        }
-        // fallback: check defaults
-        for (String s : DEFAULT_SKILLS) {
-            if (lower.contains(s.toLowerCase()))
                 found.add(s);
         }
         return new ArrayList<>(found);
