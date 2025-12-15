@@ -34,9 +34,6 @@ This approach prevents hallucination and ensures answers are based on **real car
 ---
 
 ## 🧩 RAG Architecture in Career Compass
-
-## 🧠 RAG Workflow (Retrieval Augmented Generation)
-
 ```mermaid
 flowchart TD
     A[Career Knowledge CSV Snippets] --> B[Embedding Service]
@@ -118,6 +115,18 @@ flowchart TD
 
 ### Analyze Resume vs Job Description
 
+#### POST /api/upload-resume
+Uploads PDF resume and extracts text using PDFBox.
+
+---
+
+### POST /api/analyze
+Input:
+{
+  "jobDescription": "",
+  "resumeText": ""
+}
+
 **Input**
 ```json
 {
@@ -137,8 +146,6 @@ flowchart TD
 }
 ```
 ---
-
-## 🔌 Backend API Endpoints
 
 ### 🧠 Career Coach (RAG Chat)
 ```
@@ -259,7 +266,7 @@ Career-Campass
 
 ## 🎓 Educational Value
 
-This project demonstrates:
+### This project demonstrates:
 
 Practical implementation of Retrieval Augmented Generation (RAG)
 
