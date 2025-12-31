@@ -241,25 +241,25 @@ open:http://localhost:8080
 ```
 Career-Campass
 │
-├── src/main/java
-│   ├── controller
-│   ├── service
-│   ├── model
-│   ├── dto
+├── src/main/java/com/careercompass/careercompass
+│   ├── config          # Configuration classes (CORS, AppConfig)
+│   ├── controller      # REST API Controllers
+│   ├── dto             # Data Transfer Objects
+│   ├── service         # Business Logic & AI Services
+│   ├── exception       # Global Exception Handling
+│   └── CareerCompassApplication.java
 │
 ├── src/main/resources
-│   ├── application.properties
-│   ├── knowledge (CSV snippets)
+│   ├── data            # CSV Knowledge Base (Skills, Roles)
+│   ├── static          # Frontend Assets
+│   │   ├── html        # HTML Pages (Resume, Chat, Cover Letter)
+│   │   ├── css         # Stylesheets
+│   │   ├── js          # Frontend Logic & API calls
+│   │   └── index.html  # Entry point
+│   └── application.properties
 │
-├── frontend
-│   ├── home.html
-│   ├── resume.html
-│   ├── job.html
-│   ├── results.html
-│   └── chatbot.html
-│
-├── pom.xml
-├── mvnw
+├── pom.xml             # Maven Dependencies
+├── Dockerfile          # Container Configuration
 └── README.md
 ```
 ---
