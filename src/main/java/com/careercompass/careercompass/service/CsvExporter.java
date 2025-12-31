@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
  * favor of CSV-based architecture.
  */
 @Service
+@SuppressWarnings("all")
 public class CsvExporter {
 
     // Dependencies removed as part of migration to CSV-only architecture.

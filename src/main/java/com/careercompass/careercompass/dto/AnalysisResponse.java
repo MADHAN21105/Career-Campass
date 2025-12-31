@@ -2,6 +2,7 @@ package com.careercompass.careercompass.dto;
 
 import java.util.List;
 
+@SuppressWarnings("all")
 public class AnalysisResponse {
 
     private double score;
@@ -14,10 +15,41 @@ public class AnalysisResponse {
 
     private List<String> resumeImprovementTips;
     private List<String> skillImprovementTips;
+    private List<String> mandatorySkills;
+    private List<String> preferredSkills;
+    private List<String> careerGrowthSkills;
+    private List<String> proTips;
 
     private String tip;
 
+    // ✅ Improvement 5: Score explanation for transparency
+    private String scoreExplanation;
+
+    // Granular scoring breakdown for UI
+    private int mandatoryMatchedCount;
+    private int mandatoryTotalCount;
+    private int preferredMatchedCount;
+    private int preferredTotalCount;
+    private int overallMatchedCount;
+    private int overallTotalCount;
+
+    private double hardSkillsScore;
+    private double educationScore;
+    private double titleScore;
+    private double semanticScore;
+
     public AnalysisResponse() {
+        this.jdSkills = new java.util.ArrayList<>();
+        this.resumeSkills = new java.util.ArrayList<>();
+        this.matchedSkills = new java.util.ArrayList<>();
+        this.missingSkills = new java.util.ArrayList<>();
+        this.resumeImprovementTips = new java.util.ArrayList<>();
+        this.skillImprovementTips = new java.util.ArrayList<>();
+        this.mandatorySkills = new java.util.ArrayList<>();
+        this.preferredSkills = new java.util.ArrayList<>();
+        this.preferredSkills = new java.util.ArrayList<>();
+        this.careerGrowthSkills = new java.util.ArrayList<>();
+        this.proTips = new java.util.ArrayList<>();
     }
 
     public double getScore() {
@@ -148,5 +180,154 @@ public class AnalysisResponse {
 
     public void setNextSteps(String nextSteps) {
         this.nextSteps = nextSteps;
+    }
+
+    public List<String> getMandatorySkills() {
+        return mandatorySkills;
+    }
+
+    public void setMandatorySkills(List<String> mandatorySkills) {
+        this.mandatorySkills = mandatorySkills;
+    }
+
+    public List<String> getPreferredSkills() {
+        return preferredSkills;
+    }
+
+    public void setPreferredSkills(List<String> preferredSkills) {
+        this.preferredSkills = preferredSkills;
+    }
+
+    // ATS Scoring Fields
+    private String jobTitle;
+    private String resumeTitle;
+    private String educationRequirement;
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public String getResumeTitle() {
+        return resumeTitle;
+    }
+
+    public void setResumeTitle(String resumeTitle) {
+        this.resumeTitle = resumeTitle;
+    }
+
+    public String getEducationRequirement() {
+        return educationRequirement;
+    }
+
+    public void setEducationRequirement(String educationRequirement) {
+        this.educationRequirement = educationRequirement;
+    }
+
+    public String getScoreExplanation() {
+        return scoreExplanation;
+    }
+
+    public void setScoreExplanation(String scoreExplanation) {
+        this.scoreExplanation = scoreExplanation;
+    }
+
+    public List<String> getCareerGrowthSkills() {
+        return careerGrowthSkills;
+    }
+
+    public void setCareerGrowthSkills(List<String> careerGrowthSkills) {
+        this.careerGrowthSkills = careerGrowthSkills;
+    }
+
+    public List<String> getProTips() {
+        return proTips;
+    }
+
+    public void setProTips(List<String> proTips) {
+        this.proTips = proTips;
+    }
+
+    public int getMandatoryMatchedCount() {
+        return mandatoryMatchedCount;
+    }
+
+    public void setMandatoryMatchedCount(int mandatoryMatchedCount) {
+        this.mandatoryMatchedCount = mandatoryMatchedCount;
+    }
+
+    public int getMandatoryTotalCount() {
+        return mandatoryTotalCount;
+    }
+
+    public void setMandatoryTotalCount(int mandatoryTotalCount) {
+        this.mandatoryTotalCount = mandatoryTotalCount;
+    }
+
+    public int getPreferredMatchedCount() {
+        return preferredMatchedCount;
+    }
+
+    public void setPreferredMatchedCount(int preferredMatchedCount) {
+        this.preferredMatchedCount = preferredMatchedCount;
+    }
+
+    public int getPreferredTotalCount() {
+        return preferredTotalCount;
+    }
+
+    public void setPreferredTotalCount(int preferredTotalCount) {
+        this.preferredTotalCount = preferredTotalCount;
+    }
+
+    public int getOverallMatchedCount() {
+        return overallMatchedCount;
+    }
+
+    public void setOverallMatchedCount(int overallMatchedCount) {
+        this.overallMatchedCount = overallMatchedCount;
+    }
+
+    public int getOverallTotalCount() {
+        return overallTotalCount;
+    }
+
+    public void setOverallTotalCount(int overallTotalCount) {
+        this.overallTotalCount = overallTotalCount;
+    }
+
+    public double getHardSkillsScore() {
+        return hardSkillsScore;
+    }
+
+    public void setHardSkillsScore(double hardSkillsScore) {
+        this.hardSkillsScore = hardSkillsScore;
+    }
+
+    public double getEducationScore() {
+        return educationScore;
+    }
+
+    public void setEducationScore(double educationScore) {
+        this.educationScore = educationScore;
+    }
+
+    public double getTitleScore() {
+        return titleScore;
+    }
+
+    public void setTitleScore(double titleScore) {
+        this.titleScore = titleScore;
+    }
+
+    public double getSemanticScore() {
+        return semanticScore;
+    }
+
+    public void setSemanticScore(double semanticScore) {
+        this.semanticScore = semanticScore;
     }
 }

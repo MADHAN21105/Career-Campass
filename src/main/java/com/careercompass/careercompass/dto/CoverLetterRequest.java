@@ -1,5 +1,6 @@
 package com.careercompass.careercompass.dto;
 
+@SuppressWarnings("all")
 public class CoverLetterRequest {
 
     private String fullName;

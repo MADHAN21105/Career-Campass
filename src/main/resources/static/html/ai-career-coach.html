@@ -322,6 +322,7 @@
 
 
     <!-- Scripts -->
+    <script src="../js/config.js"></script>
     <script src="../js/script.js"></script>
 
     <script>
@@ -421,7 +422,7 @@
                 } catch (e) { }
 
                 try {
-                    const res = await fetch('http://localhost:8080/api/ask', {
+                    const res = await fetch(`${CONFIG.API_BASE_URL}/api/ask`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

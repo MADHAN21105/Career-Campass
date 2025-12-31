@@ -1,30 +1,9 @@
 package com.careercompass.careercompass.dto;
 
-public class AnalysisRequest {
+import jakarta.validation.constraints.NotBlank;
 
-    // 1) variables to store incoming data
-    private String jobDescription;
-    private String resumeText;
+public record AnalysisRequest(
+        @NotBlank(message = "Job description cannot be empty") String jobDescription,
 
-    // 2) empty constructor (needed by Spring)
-    public AnalysisRequest() {
-    }
-
-    // 3) getters and setters
-
-    public String getJobDescription() {
-        return jobDescription;
-    }
-
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
-    }
-
-    public String getResumeText() {
-        return resumeText;
-    }
-
-    public void setResumeText(String resumeText) {
-        this.resumeText = resumeText;
-    }
+        @NotBlank(message = "Resume text cannot be empty") String resumeText) {
 }

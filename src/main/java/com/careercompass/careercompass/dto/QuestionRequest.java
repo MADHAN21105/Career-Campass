@@ -1,35 +1,29 @@
 package com.careercompass.careercompass.dto;
 
-public class QuestionRequest {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import java.util.List;
 
-    private String question;
-    private String resumeText;
-    private String jobDescription;
+public record QuestionRequest(
+                @NotBlank(message = "Question cannot be empty") @Size(max = 1000, message = "Question cannot exceed 1000 characters") String question,
 
-    public QuestionRequest() {
-    }
+                @Size(max = 50000, message = "Resume text cannot exceed 50000 characters") String resumeText,
 
-    public String getQuestion() {
-        return question;
-    }
+                @Size(max = 50000, message = "Job description cannot exceed 50000 characters") String jobDescription,
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
+                Double atsScore,
 
-    public String getResumeText() {
-        return resumeText;
-    }
+                List<String> matchedSkills,
 
-    public void setResumeText(String resumeText) {
-        this.resumeText = resumeText;
-    }
+                List<String> missingSkills,
 
-    public String getJobDescription() {
-        return jobDescription;
-    }
+                String summary,
 
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
-    }
+                String strength,
+
+                String improvementArea,
+
+                String recommendation,
+                String jobTitle,
+                String resumeBio) {
 }

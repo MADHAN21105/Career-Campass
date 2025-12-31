@@ -43,7 +43,7 @@ class ShatterButton {
         });
     }
 
-    handleClick(e) {
+    async handleClick(e) {
         if (this.isShattered) return;
 
         this.isShattered = true;
@@ -84,8 +84,13 @@ class ShatterButton {
         });
 
         // 4. Cleanup & Reset
+        // Call the onClick handler and wait if it's a promise
         if (this.options.onClick) {
-            this.options.onClick();
+            try {
+                await this.options.onClick();
+            } catch (err) {
+                console.error("ShatterButton onClick error:", err);
+            }
         }
 
         setTimeout(() => {

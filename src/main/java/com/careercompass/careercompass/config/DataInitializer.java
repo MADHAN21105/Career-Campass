@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.util.List;
 
 @Component
+@SuppressWarnings("all")
 public class DataInitializer {
 
     @Autowired
@@ -42,11 +43,8 @@ public class DataInitializer {
         System.out.println("🔍 Checking Pinecone Index Stats...");
         pineconeVectorService.logIndexStats();
 
-        if (!ingestEnabled) {
-            System.out.println("🛑 Auto-ingestion DISABLED via properties. Skipping Pinecone upsert.");
-            System.out.println("👉 To ingest data, make a POST request to: /admin/ingest");
-            return;
-        }
+        // SMART INGESTION:
+        // Logic moved to ingestAllData() to allow "One-Time" ingestion if empty
         ingestAllData();
     }
 
@@ -58,11 +56,12 @@ public class DataInitializer {
             if (INGEST_TO_PINECONE) {
                 System.out.println("\n🔍 Checking Pinecone index status...");
 
-                // Check if index is empty OR if this manual call forces it
+                // SMART INGEST: Only sync if index is empty OR if explicitly enabled via
+                // property
                 if (pineconeVectorService.isIndexEmpty() || ingestEnabled) {
-                    System.out.println("📦 Pinecone index check passed. Starting data ingestion...");
+                    System.out.println("📦 Pinecone ingestion criteria met. Starting data sync...");
 
-                    List<Snippets> snippets;
+                    List<CsvSnippetLoader.Snippets> snippets = null;
 
                     // Load snippets from MULTIPLE CSV files
                     // 1. unified_knowledge.csv (Core data)
@@ -72,6 +71,7 @@ public class DataInitializer {
                             "data/interview_qa.csv",
                             "data/career_guidance.csv",
                             "data/soft_skills.csv",
+                            "data/skills.csv",
                             "data/resume_ats.csv",
                             "data/career_transition.csv",
                             "data/job_search.csv");

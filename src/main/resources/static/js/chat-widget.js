@@ -411,43 +411,76 @@ class ChatWidget {
         }
 
         // 2. Prepare Context (from localStorage)
-        let context = {};
+        let context = {
+            resumeText: '',
+            jobDescription: '',
+            atsScore: null,
+            matchedSkills: [],
+            missingSkills: [],
+            summary: '',
+            strength: '',
+            improvementArea: '',
+            recommendation: ''
+        };
+
         try {
-            // "resumeText" and "jobDescription" are usually sent in /api/analyze body
-            // BUT here we only saved the RESULT in 'analysisResults'.
-            // The result (AnalysisResponse) contains "jdSkills" and "resumeSkills" but NOT the full text.
-            // Oh, wait, the user's `resume-analysis.js` logic did NOT save the raw text to localStorage.
-            // It only saved `analysisResults` (the response).
-
-            // However, the resume text IS available if we are on the analysis page (in the textarea).
-            // On the result page, we might have lost it if we didn't persist it.
-            // Let's check `resume-analysis.js`... ah, it only saved `analysisResults`.
-            // The `AnalysisResponse` DTO structure does NOT return the full text back.
-
-            // This is a limitation. For now, I will send what I can, or empty strings.
-            // Ideally, we should update `resume-analysis.js` to save the raw inputs to localStorage too.
-            // I'll add a quick fix to `resume-analysis.js` later if needed.
-            // For now, let's try to pull from localStorage if I modify `resume-analysis.js` to save it.
-
-            // Let's assume we will have `analysisContext` in localStorage.
+            // Get the raw resume and JD text
             const storedContext = localStorage.getItem('analysisContext');
             if (storedContext) {
-                context = JSON.parse(storedContext);
+                const parsedContext = JSON.parse(storedContext);
+                context.resumeText = parsedContext.resumeText || '';
+                context.jobDescription = parsedContext.jobDescription || '';
+            }
+
+            // Get the analysis results
+            const storedResults = localStorage.getItem('analysisResults');
+            if (storedResults) {
+                const results = JSON.parse(storedResults);
+                context.atsScore = parseFloat(results.score || results.atsScore || 0);
+                context.matchedSkills = results.matchedSkills || [];
+                context.missingSkills = results.missingSkills || [];
+                context.summary = results.summary || '';
+                context.strength = results.strength || '';
+                context.improvementArea = results.improvementArea || '';
+                context.recommendation = results.recommendation || '';
+                context.jobTitle = results.jobTitle || '';
+                context.resumeBio = results.summary || '';
             }
         } catch (e) {
             console.error('Error reading context', e);
         }
 
         try {
-            // 3. API Call
-            const res = await fetch('http://localhost:8080/api/ask', {
+            // 3. API Call with FULL context
+            const requestPayload = {
+                question: text,
+                resumeText: context.resumeText,
+                jobDescription: context.jobDescription,
+                atsScore: context.atsScore,
+                matchedSkills: context.matchedSkills,
+                missingSkills: context.missingSkills,
+                summary: context.summary,
+                strength: context.strength,
+                improvementArea: context.improvementArea,
+                recommendation: context.recommendation,
+                jobTitle: context.jobTitle,
+                resumeBio: context.resumeBio
+            };
+
+            // Debug: Log what we're sending
+            console.log('🔍 Chatbot Request:', {
+                question: text,
+                atsScore: context.atsScore,
+                matchedSkillsCount: context.matchedSkills?.length || 0,
+                missingSkillsCount: context.missingSkills?.length || 0,
+                hasSummary: !!context.summary,
+                hasStrength: !!context.strength
+            });
+
+            const res = await fetch(`${CONFIG.API_BASE_URL}/api/ask`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    question: text,
-                    resumeText: context.resumeText || '',
-                    jobDescription: context.jobDescription || ''
-                })
+                body: JSON.stringify(requestPayload)
             });
 
             if (!res.ok) throw new Error('API Error');

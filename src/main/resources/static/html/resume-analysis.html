@@ -278,7 +278,7 @@
                         <!-- JD Input (Paste Only - Removed Tabs) -->
                         <div>
                             <label class="block text-xs font-medium mb-1">Job Description</label>
-                            <textarea placeholder="Paste the full job description here..."
+                            <textarea id="jd-text-input" placeholder="Paste the full job description here..."
                                 class="w-full h-32 px-3 py-2 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"></textarea>
                         </div>
 
@@ -289,6 +289,63 @@
                                 Analyze Match <i data-lucide="sparkles" class="w-4 h-4 group-hover:animate-pulse"></i>
                             </span>
                         </button>
+
+                        <!-- Progress Indicator (Hidden by default) -->
+                        <div id="analysis-progress"
+                            class="hidden mt-6 p-6 border border-indigo-100 rounded-2xl bg-white shadow-sm space-y-5">
+                            <div class="flex items-center gap-2 mb-2 border-b border-indigo-50 pb-3">
+                                <div class="w-6 h-6 rounded-md bg-indigo-600 flex items-center justify-center">
+                                    <i data-lucide="zap" class="w-3.5 h-3.5 text-white"></i>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-800">Processing Analysis</h3>
+                            </div>
+
+                            <!-- Steps -->
+                            <div class="space-y-4">
+                                <!-- Step 1 -->
+                                <div class="flex items-center gap-4 text-sm transition-all duration-300" id="step-1">
+                                    <div
+                                        class="step-icon w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 border border-indigo-100">
+                                        <i data-lucide="circle" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-slate-500 font-medium whitespace-nowrap">Parsing your
+                                        resume</span>
+                                </div>
+
+                                <!-- Step 2 -->
+                                <div class="flex items-center gap-4 text-sm transition-all duration-300 opacity-40"
+                                    id="step-2">
+                                    <div
+                                        class="step-icon w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 border border-indigo-100">
+                                        <i data-lucide="circle" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-slate-500 font-medium whitespace-nowrap">Analyzing your
+                                        experience</span>
+                                </div>
+
+                                <!-- Step 3 -->
+                                <div class="flex items-center gap-4 text-sm transition-all duration-300 opacity-40"
+                                    id="step-3">
+                                    <div
+                                        class="step-icon w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 border border-indigo-100">
+                                        <i data-lucide="circle" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-slate-500 font-medium whitespace-nowrap">Extracting your
+                                        skills</span>
+                                </div>
+
+                                <!-- Step 4 -->
+                                <div class="flex items-center gap-4 text-sm transition-all duration-300 opacity-40"
+                                    id="step-4">
+                                    <div
+                                        class="step-icon w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 border border-indigo-100">
+                                        <i data-lucide="circle" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-slate-500 font-medium whitespace-nowrap">Generating
+                                        recommendations</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -365,6 +422,7 @@
         </div>
     </footer>
 
+    <script src="../js/config.js"></script>
     <script src="../js/script.js"></script>
     <script src="../js/shatter-button.js"></script>
     <script src="../js/resume-analysis.js"></script>

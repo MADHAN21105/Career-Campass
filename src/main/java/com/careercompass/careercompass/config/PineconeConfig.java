@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@SuppressWarnings("all")
 public class PineconeConfig {
 
     @Value("${pinecone.api.key}")

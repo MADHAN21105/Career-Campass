@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Service
+@SuppressWarnings("all")
 public class PineconeVectorService {
 
     @Autowired
@@ -32,7 +33,7 @@ public class PineconeVectorService {
      * 
      * @param snippets Batch of snippets to store
      */
-    public void upsertSnippetsBatch(List<Snippets> snippets) {
+    public void upsertSnippetsBatch(List<CsvSnippetLoader.Snippets> snippets) {
         if (snippets.isEmpty())
             return;
 
@@ -40,7 +41,7 @@ public class PineconeVectorService {
             JsonObject requestBody = new JsonObject();
             JsonArray vectors = new JsonArray();
 
-            for (Snippets snippet : snippets) {
+            for (CsvSnippetLoader.Snippets snippet : snippets) {
                 // Generate embedding for the snippet's advice text
                 String textToEmbed = snippet.getTopic() + " " + snippet.getAdviceText();
                 List<Float> embedding = embeddingService.generateEmbedding(textToEmbed);
@@ -97,7 +98,7 @@ public class PineconeVectorService {
     /**
      * Upsert a single snippet (Wrapper for batch)
      */
-    public void upsertSnippet(Snippets snippet) {
+    public void upsertSnippets(CsvSnippetLoader.Snippets snippet) {
         upsertSnippetsBatch(Collections.singletonList(snippet));
     }
 
@@ -112,6 +113,10 @@ public class PineconeVectorService {
         try {
             // Generate embedding for the query
             List<Float> queryEmbedding = embeddingService.generateEmbedding(query);
+            if (queryEmbedding == null || queryEmbedding.isEmpty()) {
+                System.err.println("⚠️ Skipping Pinecone query due to empty embedding.");
+                return new ArrayList<>();
+            }
 
             // Build query request
             JsonObject requestBody = new JsonObject();
@@ -140,8 +145,8 @@ public class PineconeVectorService {
                 }
 
                 String responseBody = response.body().string();
-                // DEBUG LOG: Print raw response from Pinecone
-                System.out.println("🔎 RAW Pinecone Response: " + responseBody);
+                // DEBUG LOG: Print raw response from Pinecone (Removed for security)
+                // System.out.println("🔎 RAW Pinecone Response: " + responseBody);
 
                 JsonObject jsonResponse = gson.fromJson(responseBody, JsonObject.class);
 
@@ -174,7 +179,7 @@ public class PineconeVectorService {
                         String adviceText = metadata.has("adviceText") ? metadata.get("adviceText").getAsString() : "";
                         String keywordsAndStr = metadata.has("keywords") ? metadata.get("keywords").getAsString() : "";
 
-                        Snippets snippet = new Snippets(
+                        CsvSnippetLoader.Snippets snippet = new CsvSnippetLoader.Snippets(
                                 id,
                                 topic,
                                 category,
@@ -192,6 +197,9 @@ public class PineconeVectorService {
 
         } catch (Exception e) {
             System.err.println("❌ Error performing semantic search: " + e.getMessage());
+            if (e.getCause() != null) {
+                System.err.println("   - Nested Cause: " + e.getCause().getMessage());
+            }
             // Return empty list on error to allow fallback
             return new ArrayList<>();
         }
@@ -202,14 +210,14 @@ public class PineconeVectorService {
      * 
      * @param snippets List of snippets to populate
      */
-    public void initializeIndex(List<Snippets> snippets) {
+    public void initializeIndex(List<CsvSnippetLoader.Snippets> snippets) {
         System.out.println("🔄 Populating Pinecone index with " + snippets.size() + " snippets (Batch Mode)...");
 
         int processedCount = 0;
         int batchSize = 50; // Pinecone recommends smaller batches for complex metadata, 50-100 is safe
-        List<Snippets> batch = new ArrayList<>();
+        List<CsvSnippetLoader.Snippets> batch = new ArrayList<>();
 
-        for (Snippets snippet : snippets) {
+        for (CsvSnippetLoader.Snippets snippet : snippets) {
             batch.add(snippet);
 
             if (batch.size() >= batchSize) {
@@ -285,18 +293,41 @@ public class PineconeVectorService {
     }
 
     /**
+     * Calculate semantic similarity between two text blocks
+     * 
+     * @param text1 First text block (e.g., job description)
+     * @param text2 Second text block (e.g., resume)
+     * @return Similarity score (0.0 to 1.0)
+     */
+    public double calculateSemanticSimilarity(String text1, String text2) {
+        if (text1 == null || text2 == null || text1.trim().isEmpty() || text2.trim().isEmpty()) {
+            return 0.0;
+        }
+
+        try {
+            List<Float> embedding1 = embeddingService.generateEmbedding(text1);
+            List<Float> embedding2 = embeddingService.generateEmbedding(text2);
+
+            return embeddingService.calculateCosineSimilarity(embedding1, embedding2);
+        } catch (Exception e) {
+            System.err.println("⚠️ Semantic similarity calculation failed: " + e.getMessage());
+            return 0.0;
+        }
+    }
+
+    /**
      * Helper class to hold snippet with similarity score
      */
     public static class ScoredSnippet {
-        private final Snippets snippet;
+        private final CsvSnippetLoader.Snippets snippet;
         private final double score;
 
-        public ScoredSnippet(Snippets snippet, double score) {
+        public ScoredSnippet(CsvSnippetLoader.Snippets snippet, double score) {
             this.snippet = snippet;
             this.score = score;
         }
 
-        public Snippets getSnippet() {
+        public CsvSnippetLoader.Snippets getSnippet() {
             return snippet;
         }
 

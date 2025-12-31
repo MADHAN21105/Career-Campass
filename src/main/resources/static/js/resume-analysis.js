@@ -203,12 +203,11 @@ document.addEventListener('DOMContentLoaded', () => {
             shatterColor: '#6366f1',
             onClick: async () => {
                 // 1. Gather Data
-                const jobTitle = document.querySelector('input[placeholder="e.g. Senior Software Engineer"]')?.value || '';
-                const jobCompany = document.querySelector('input[placeholder="e.g. Google"]')?.value || '';
-                const jdText = document.querySelector('textarea[placeholder="Paste the full job description here..."]')?.value || '';
+                const jdText = document.getElementById('jd-text-input')?.value || '';
 
                 if (!jdText.trim()) {
                     alert('Please enter a job description.');
+                    // Reset ShatterButton if validation fails
                     return;
                 }
 
@@ -216,36 +215,91 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Determine Resume Source
                 if (resumeMode === 'paste') {
-                    // Paste Mode
                     const pastedText = document.getElementById('resume-text-input')?.value || "";
                     if (!pastedText.trim()) {
                         alert('Please paste your resume text.');
                         return;
                     }
                     resumeTextToAnalyze = pastedText;
-
                 } else {
-                    // Upload Mode
                     if (uploadedFiles.length === 0) {
                         alert('Please upload a resume.');
                         return;
                     }
                 }
 
-                // Show loading state (optional, but good UX)
-                const originalText = analyzeBtn.innerHTML;
-                analyzeBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 mr-2 animate-spin"></i> Analyzing...';
-                analyzeBtn.disabled = true;
+                // --- PROGRESS UI LOGIC (Rock Solid) ---
+                const progressContainer = document.getElementById('analysis-progress');
+                const steps = ['step-1', 'step-2', 'step-3', 'step-4'];
+                let completedSteps = new Set();
+                let activeTimeouts = [];
+
+                const updateStepUI = (stepId, status) => {
+                    const stepEl = document.getElementById(stepId);
+                    if (!stepEl) return;
+
+                    const iconContainer = stepEl.querySelector('.step-icon');
+                    const textSpan = stepEl.querySelector('span');
+
+                    if (status === 'active') {
+                        stepEl.classList.remove('opacity-40');
+                        if (textSpan) {
+                            textSpan.classList.remove('text-slate-500');
+                            textSpan.classList.add('text-slate-900', 'font-bold');
+                        }
+                        if (iconContainer) {
+                            iconContainer.classList.add('ring-2', 'ring-indigo-100');
+                            iconContainer.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin text-indigo-600"></i>';
+                        }
+                    } else if (status === 'done') {
+                        completedSteps.add(stepId);
+                        stepEl.classList.remove('opacity-40');
+                        if (textSpan) {
+                            textSpan.classList.remove('text-slate-900', 'font-bold');
+                            textSpan.classList.add('text-slate-500', 'font-medium');
+                        }
+                        if (iconContainer) {
+                            iconContainer.classList.remove('bg-indigo-50', 'text-indigo-600', 'ring-2', 'ring-indigo-100');
+                            iconContainer.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
+                            iconContainer.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i>';
+                        }
+                    }
+                    if (window.lucide) lucide.createIcons();
+                };
+
+                // Reveal Container
+                if (progressContainer) {
+                    progressContainer.classList.remove('hidden');
+                    progressContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+
+                // Start Fake Progressive Reveal
+                const startFakeProgress = () => {
+                    const delays = [0, 2000, 4500, 7000];
+                    steps.forEach((stepId, i) => {
+                        const t = setTimeout(() => {
+                            if (!completedSteps.has(stepId)) {
+                                updateStepUI(stepId, 'active');
+                                // Mark previous as done
+                                if (i > 0 && !completedSteps.has(steps[i - 1])) {
+                                    updateStepUI(steps[i - 1], 'done');
+                                }
+                            }
+                        }, delays[i]);
+                        activeTimeouts.push(t);
+                    });
+                };
+
+                startFakeProgress();
 
                 try {
-                    // 2. If Upload Mode -> Upload Resume First to extract text
+                    // 2. If Upload Mode -> Upload Resume First
                     if (resumeMode === 'upload') {
-                        console.log('Uploading resume...');
                         const resumeFile = uploadedFiles[0].file;
                         const formData = new FormData();
                         formData.append('file', resumeFile);
 
-                        const uploadRes = await fetch('http://localhost:8080/api/upload-resume', {
+                        const uploadRes = await fetch(`${CONFIG.API_BASE_URL}/api/upload-resume`, {
                             method: 'POST',
                             body: formData
                         });
@@ -253,12 +307,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (!uploadRes.ok) throw new Error('Resume upload failed');
                         const uploadData = await uploadRes.json();
                         resumeTextToAnalyze = uploadData.text;
-                        console.log('Resume text extracted:', resumeTextToAnalyze?.substring(0, 50) + '...');
                     }
 
                     // 3. Analyze
-                    console.log('Sending analysis request...');
-                    const analyzeRes = await fetch('http://localhost:8080/api/analyze', {
+                    const analyzeRes = await fetch(`${CONFIG.API_BASE_URL}/api/analyze`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -269,31 +321,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (!analyzeRes.ok) throw new Error('Analysis failed');
                     const analysisData = await analyzeRes.json();
-                    console.log('Analysis result received:', analysisData);
 
-                    // 4. Save and Redirect
+                    // 4. Cleanup & Save
                     localStorage.setItem('analysisResults', JSON.stringify(analysisData));
-                    console.log('Results saved to localStorage');
-
-                    // SAVE CONTEXT FOR CHATBOT
                     localStorage.setItem('analysisContext', JSON.stringify({
                         resumeText: resumeTextToAnalyze,
                         jobDescription: jdText
                     }));
-                    console.log('Context saved to localStorage');
 
-                    // Add delay for shatter animation if needed, or just redirect
+                    // Clear all timeouts and mark all as done
+                    activeTimeouts.forEach(clearTimeout);
+                    steps.forEach(id => updateStepUI(id, 'done'));
+
+                    // Redirect
                     setTimeout(() => {
-                        console.log('Redirecting to resume-result.html');
                         window.location.href = 'resume-result.html';
-                    }, 500);
+                    }, 1200);
 
                 } catch (error) {
-                    console.error('FULL ERROR STACK:', error);
-                    alert(`Analysis Error: ${error.message}\nCheck console for details.`);
-                    // Reset button
-                    analyzeBtn.innerHTML = originalText;
-                    analyzeBtn.disabled = false;
+                    activeTimeouts.forEach(clearTimeout);
+                    console.error('Analysis error:', error);
+                    alert(`Analysis Error: ${error.message}`);
+                    if (progressContainer) progressContainer.classList.add('hidden');
                 }
             }
         });

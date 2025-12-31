@@ -178,7 +178,7 @@
 
     <!-- Main Content -->
     <main class="py-6 bg-secondary/30 min-h-screen">
-        <div class="container mx-auto px-4 max-w-5xl">
+        <div class="container mx-auto px-4 max-w-6xl">
             <!-- Header Section -->
             <div class="text-center mb-5">
                 <h1 class="text-2xl md:text-3xl font-bold tracking-tight mb-2">Cover Letter Generator</h1>
@@ -191,61 +191,61 @@
                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 transition-all duration-500">
                 <!-- Left Column: Candidate Information -->
                 <div class="space-y-3">
-                    <div class="bg-card border border-border rounded-xl shadow-sm p-4 h-full flex flex-col">
+                    <div class="bg-card border border-border rounded-xl shadow-sm p-6 h-full flex flex-col">
                         <div class="flex items-center gap-2 mb-3">
                             <div class="p-1.5 bg-blue-100 rounded-lg text-blue-600">
                                 <i data-lucide="user" class="w-4 h-4"></i>
                             </div>
                             <div>
-                                <h2 class="text-base font-bold">Candidate Information</h2>
-                                <p class="text-[10px] text-muted-foreground">Your personal details</p>
+                                <h2 class="text-xl font-bold">Candidate Information</h2>
+                                <p class="text-xs text-muted-foreground">Your personal details</p>
                             </div>
                         </div>
 
                         <!-- Candidate Fields -->
                         <div class="flex-1 flex flex-col gap-2">
                             <div class="space-y-1">
-                                <label class="block text-xs font-medium mb-1">Full
+                                <label class="block text-sm font-medium mb-1">Full
                                     Name</label>
                                 <input type="text" id="fullName" placeholder="e.g. John Doe"
-                                    class="w-full px-3 py-1.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                    class="w-full px-3 py-2.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 <div class="space-y-1">
-                                    <label class="block text-xs font-medium mb-1">Email
+                                    <label class="block text-sm font-medium mb-1">Email
                                         Address</label>
                                     <input type="email" id="email" placeholder="john@example.com"
-                                        class="w-full px-3 py-1.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                        class="w-full px-3 py-2.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                                 </div>
                                 <div class="space-y-1">
-                                    <label class="block text-xs font-medium mb-1">Phone
+                                    <label class="block text-sm font-medium mb-1">Phone
                                         Number</label>
                                     <input type="tel" id="phone" placeholder="+1 (555) 123-4567"
-                                        class="w-full px-3 py-1.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                        class="w-full px-3 py-2.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 <div class="space-y-1">
-                                    <label class="block text-xs font-medium mb-1">Company
+                                    <label class="block text-sm font-medium mb-1">Company
                                         Name</label>
                                     <input type="text" id="companyName" placeholder="e.g. Google"
-                                        class="w-full px-3 py-1.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                        class="w-full px-3 py-2.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                                 </div>
                                 <div class="space-y-1">
-                                    <label class="block text-xs font-medium mb-1">Job
+                                    <label class="block text-sm font-medium mb-1">Job
                                         Title</label>
                                     <input type="text" id="jobTitle" placeholder="e.g. Software Engineer"
-                                        class="w-full px-3 py-1.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                        class="w-full px-3 py-2.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                                 </div>
                             </div>
 
                             <div class="space-y-1">
-                                <label class="block text-xs font-medium mb-1">Hiring
+                                <label class="block text-sm font-medium mb-1">Hiring
                                     Manager Name</label>
                                 <input type="text" id="hiringManager" placeholder="e.g. Jane Smith"
-                                    class="w-full px-3 py-1.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                                    class="w-full px-3 py-2.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                             </div>
                         </div>
                     </div>
@@ -253,24 +253,24 @@
 
                 <!-- Right Column: Job Description -->
                 <div class="space-y-3">
-                    <div class="bg-card border border-border rounded-xl shadow-sm p-4 h-full flex flex-col">
+                    <div class="bg-card border border-border rounded-xl shadow-sm p-6 h-full flex flex-col">
                         <div class="flex items-center gap-2 mb-3">
                             <div class="p-1.5 bg-purple-100 rounded-lg text-purple-600">
                                 <i data-lucide="briefcase" class="w-4 h-4"></i>
                             </div>
                             <div>
-                                <h2 class="text-base font-bold">Job Description</h2>
-                                <p class="text-[10px] text-muted-foreground">Paste text details</p>
+                                <h2 class="text-xl font-bold">Job Description</h2>
+                                <p class="text-xs text-muted-foreground">Paste text details</p>
                             </div>
                         </div>
 
                         <!-- Content: Paste Text -->
                         <div id="content-paste" class="flex-1 flex flex-col gap-2">
                             <div class="space-y-1 flex-1">
-                                <label class="block text-xs font-medium mb-1">Job
+                                <label class="block text-sm font-medium mb-1">Job
                                     Description</label>
                                 <textarea id="jobDescription" placeholder="Paste the full job description here..."
-                                    class="w-full h-32 px-3 py-2 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"></textarea>
+                                    class="w-full h-48 px-3 py-2 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"></textarea>
                             </div>
                         </div>
 
@@ -356,6 +356,7 @@
     </footer>
 
     <!-- Scripts -->
+    <script src="../js/config.js"></script>
     <script src="../js/script.js"></script>
     <script src="../js/shatter-button.js"></script>
     <script src="../js/cover-letter.js"></script>

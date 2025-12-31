@@ -21,6 +21,7 @@ import java.util.List;
  * Supports batch processing for large files (10,000+ records).
  */
 @Service
+@SuppressWarnings("all")
 public class CsvSnippetLoader {
 
     /**
@@ -87,7 +88,13 @@ public class CsvSnippetLoader {
             for (CSVRecord record : parser) {
                 totalRecords++;
                 try {
-                    String id = record.isMapped("id") ? record.get("id") : "unknown-" + totalRecords;
+                    // Robust ID generation: Use "id" column if present, else fallback to
+                    // filename-row
+                    String fileName = new java.io.File(filePath).getName().replace(".csv", "");
+                    String id = record.isMapped("id") && !record.get("id").isBlank()
+                            ? record.get("id")
+                            : fileName + "-" + totalRecords;
+
                     String topic;
                     String category;
                     String keywordsStr;
@@ -147,14 +154,35 @@ public class CsvSnippetLoader {
 
                         // Combine into a ROADMAP-STYLE Advice Text
                         adviceText = String.format(
-                                "To transition from **%s** to **%s**:\n" +
+                                "Transition Strategy: **%s** to **%s**\n" +
                                         "1. **Required Skills**: %s\n" +
-                                        "2. **Steps to take**: %s\n" +
-                                        "3. **Estimated Timeline**: %s",
+                                        "2. **Steps**: %s\n" +
+                                        "3. **Timeline**: %s",
                                 fromRole, toRole, reqSkills, steps, time);
 
+                    } else if (record.isMapped("topic") && record.isMapped("adviceText")
+                            && record.isMapped("importance")) {
+                        // 4. CHECK FOR SKILLS TAXONOMY SCHEMA (skills.csv)
+                        String sTopic = record.get("topic");
+                        String sCategory = record.get("category");
+                        String sKeywords = record.get("keywords");
+                        String sAdvice = record.get("adviceText");
+                        String sImportance = record.get("importance");
+
+                        // Clean up "Skill: " prefix if present in topic
+                        topic = sTopic.toLowerCase().startsWith("skill: ") ? sTopic.substring(7) : sTopic;
+                        category = (sCategory != null && !sCategory.isEmpty()) ? sCategory : "Technical Skill";
+                        keywordsStr = sKeywords;
+
+                        // Combine into a structured Advice Text
+                        adviceText = String.format(
+                                "Skill: **%s** (%s)\n" +
+                                        "Importance: %s\n\n" +
+                                        "💡 **Expert Advice**:\n%s",
+                                topic, category, sImportance, sAdvice);
+
                     } else if (record.isMapped("platform")) {
-                        // 4. CHECK FOR JOB SEARCH STRATEGY SCHEMA
+                        // 5. CHECK FOR JOB SEARCH STRATEGY SCHEMA
                         String platform = record.get("platform");
                         String advice = record.get("adviceText");
 
@@ -257,6 +285,82 @@ public class CsvSnippetLoader {
             System.err.println("❌ Failed to load custom CSV: " + e.getMessage());
             e.printStackTrace();
             return new ArrayList<>();
+        }
+    }
+
+    /**
+     * Snippets
+     * 
+     * Represents a piece of knowledge snippet (RAG data, Skill, Job Role, etc.)
+     * used for Pinecone ingestion and search.
+     */
+    public static class Snippets {
+        private String id;
+        private String topic;
+        private String category;
+        private List<String> keywords;
+        private String adviceText;
+
+        public Snippets() {
+        }
+
+        public Snippets(String id, String topic, String category, List<String> keywords, String adviceText) {
+            this.id = id;
+            this.topic = topic;
+            this.category = category;
+            this.keywords = keywords;
+            this.adviceText = adviceText;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getTopic() {
+            return topic;
+        }
+
+        public void setTopic(String topic) {
+            this.topic = topic;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public void setCategory(String category) {
+            this.category = category;
+        }
+
+        public List<String> getKeywords() {
+            return keywords;
+        }
+
+        public void setKeywords(List<String> keywords) {
+            this.keywords = keywords;
+        }
+
+        public String getAdviceText() {
+            return adviceText;
+        }
+
+        public void setAdviceText(String adviceText) {
+            this.adviceText = adviceText;
+        }
+
+        @Override
+        public String toString() {
+            return "Snippets{" +
+                    "id='" + id + '\'' +
+                    ", topic='" + topic + '\'' +
+                    ", category='" + category + '\'' +
+                    ", keywords=" + keywords +
+                    ", adviceText='" + adviceText + '\'' +
+                    '}';
         }
     }
 }

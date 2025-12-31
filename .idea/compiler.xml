@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="career-compass" options="-parameters" />
+      <module name="career-compass" options="-parameters -Xlint:none" />
     </option>
   </component>
 </project>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,6 +9,8 @@
     <!-- Fonts & Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/resume-result.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -318,10 +320,146 @@
             font-size: 0.9rem;
             color: var(--text-secondary);
             line-height: 1.6;
-            padding: 12px 14px;
-            background: var(--surface-tertiary);
+            white-space: pre-wrap;
+        }
+
+        .pillar-card {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.6);
             border-radius: var(--radius-sm);
-            border-left: 3px solid var(--primary);
+            border-left: 4px solid var(--primary);
+            max-height: 250px;
+            overflow-y: auto;
+            transition: all 0.2s ease;
+        }
+
+        .pillar-card:hover {
+            background: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* CUSTOM SCROLLBAR FOR PILLARS */
+        .pillar-card::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .pillar-card::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .pillar-card::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .pillar-card::-webkit-scrollbar-thumb:hover {
+            background: #cbd5e1;
+        }
+
+        .pillar-label {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #1e293b;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            letter-spacing: 0.04em;
+        }
+
+        .pillar-text {
+            font-size: 0.85rem;
+            color: #334155;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .breakdown-container {
+            margin-top: 12px;
+            padding: 4px;
+            background: rgba(248, 250, 252, 0.4);
+            border-radius: var(--radius-sm);
+            border: 1px solid #e2e8f0;
+        }
+
+        .breakdown-item {
+            padding: 10px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .breakdown-item:hover {
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .breakdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breakdown-label {
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.82rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .breakdown-value {
+            color: #1e293b;
+            font-weight: 700;
+            font-size: 0.82rem;
+        }
+
+        .breakdown-skills-list {
+            margin-top: 8px;
+            display: none;
+            /* Toggle via JS */
+            flex-wrap: wrap;
+            gap: 4px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .mini-tag {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .mini-tag-matched {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .mini-tag-missing {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .breakdown-item.static {
+            cursor: default;
+        }
+
+        .breakdown-item.static:hover {
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .breakdown-arrow {
+            font-size: 0.9rem;
+            font-weight: 800;
+            transition: transform 0.3s ease;
+        }
+
+        .breakdown-arrow.expanded {
+            transform: rotate(90deg);
         }
 
         /* SECTIONS */
@@ -389,28 +527,20 @@
             color: var(--text-secondary);
             margin-bottom: 6px;
             line-height: 1.5;
+            white-space: pre-wrap;
         }
 
         .tip-box {
-            margin-top: 16px;
-            padding: 14px 16px;
+            margin-top: 10px;
+            padding: 10px 14px;
             border-radius: var(--radius);
             background: linear-gradient(135deg, #fefce8, #fef9c3);
             border: 1px solid #fde047;
             font-size: 0.88rem;
             color: var(--warning-text);
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-        }
-
-        .tip-icon {
-            font-size: 1.1rem;
-            flex-shrink: 0;
         }
 
         .tip-text {
-            flex: 1;
             line-height: 1.55;
         }
 
@@ -524,6 +654,7 @@
                 </h1>
             </div>
 
+
             <div class="layout">
 
                 <!-- LEFT: Job Match & Fit -->
@@ -531,7 +662,7 @@
                     <div class="card-header">
                         <div>
                             <h2 class="card-title">Overall Job Fit</h2>
-                            <p class="card-subtitle">Match score, strengths, and skill gaps</p>
+                            <p class="card-subtitle">Match score and technical skill alignment</p>
                         </div>
                     </div>
 
@@ -552,9 +683,7 @@
                         </div>
                     </div>
 
-                    <div id="summaryText" class="summary-text">
-                        Run an analysis from the Job page to see your detailed match report here.
-                    </div>
+                    <!-- Summary content is now integrated into the Strategic Analysis pillars -->
 
                     <!--
                 <div class="section">
@@ -587,6 +716,10 @@
                         </div>
                     </div>
 
+                    <div id="matchBreakdown" class="section">
+                        <!-- match breakdown will be injected here -->
+                    </div>
+
 
 
                     <div class="actions space-y-3">
@@ -614,7 +747,6 @@
                 <!-- RIGHT: Resume Improvements -->
                 <div class="card">
                     <div class="tip-box" id="tipBox" style="margin-bottom: 20px;">
-                        <div class="tip-icon">💡</div>
                         <div class="tip-text" id="tipText">
                             <!-- AI tip -->
                         </div>
@@ -768,301 +900,7 @@
         }
     </style>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Chat Logic
-            const chatToggle = document.getElementById('chat-toggle');
-            const chatWindow = document.getElementById('chat-window');
-            const closeChat = document.getElementById('close-chat');
-            const chatInput = document.getElementById('chat-input');
-            const sendBtn = document.getElementById('send-btn');
-            const messagesContainer = document.getElementById('chat-messages');
-
-            if (chatToggle && chatWindow) {
-                // Toggle Chat
-                function toggleChat() {
-                    chatWindow.classList.toggle('hidden');
-                    // Small delay to allow display:flex to apply before opacity transition
-                    if (!chatWindow.classList.contains('hidden')) {
-                        setTimeout(() => chatWindow.classList.add('open'), 10);
-                        chatInput.focus();
-                        chatToggle.querySelector('span').classList.add('hidden'); // Hide notification dot
-                    } else {
-                        chatWindow.classList.remove('open');
-                    }
-                }
-
-                chatToggle.addEventListener('click', toggleChat);
-                closeChat.addEventListener('click', toggleChat);
-
-                // Auto-resize textarea
-                chatInput.addEventListener('input', function () {
-                    this.style.height = 'auto';
-                    this.style.height = (this.scrollHeight) + 'px';
-                });
-
-                // Send Message Logic
-                async function sendMessage() {
-                    const text = chatInput.value.trim();
-                    if (!text) return;
-
-                    // User Message
-                    addMessage(text, true);
-                    chatInput.value = '';
-                    chatInput.style.height = 'auto';
-
-                    // Loading
-                    const loadingId = addLoading();
-
-                    // Get Context from LocalStorage
-                    let context = {};
-                    try {
-                        const stored = localStorage.getItem('analysisContext');
-                        if (stored) context = JSON.parse(stored);
-                    } catch (e) { }
-
-                    try {
-                        const res = await fetch('http://localhost:8080/api/ask', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                question: text,
-                                resumeText: context.resumeText || '', // Needs to be populated in resume-analysis.js
-                                jobDescription: context.jobDescription || ''
-                            })
-                        });
-
-                        if (!res.ok) throw new Error('API Error');
-                        const data = await res.json();
-
-                        removeLoading(loadingId);
-                        addMessage(data.answer, false);
-
-                    } catch (err) {
-                        removeLoading(loadingId);
-                        addMessage("I'm having trouble connecting. Please try again.", false);
-                    }
-                }
-
-                sendBtn.addEventListener('click', sendMessage);
-                chatInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        sendMessage();
-                    }
-                });
-
-                function addMessage(text, isUser) {
-                    const wrapper = document.createElement('div');
-                    wrapper.className = `flex gap-3 ${isUser ? 'ml-auto flex-row-reverse' : ''}`;
-
-                    const avatar = document.createElement('div');
-                    avatar.className = `w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-1 ${isUser ? 'bg-blue-600 text-white shadow-md' : 'bg-primary/10 text-primary'}`;
-                    avatar.innerHTML = `<i data-lucide="${isUser ? 'user' : 'bot'}" class="w-3 h-3"></i>`;
-
-                    const bubble = document.createElement('div');
-                    bubble.className = `p-3 rounded-2xl shadow-sm text-xs leading-relaxed max-w-[80%] ${isUser ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-white border border-gray-200 text-gray-700 rounded-tl-none'}`;
-                    bubble.innerHTML = text.replace(/\n/g, '<br>');
-
-                    wrapper.appendChild(avatar);
-                    wrapper.appendChild(bubble);
-                    messagesContainer.appendChild(wrapper);
-
-                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                    lucide.createIcons();
-                }
-
-                function addLoading() {
-                    const id = 'loading-' + Date.now();
-                    const wrapper = document.createElement('div');
-                    wrapper.id = id;
-                    wrapper.className = 'flex gap-3';
-                    wrapper.innerHTML = `
-                        <div class="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                            <i data-lucide="bot" class="w-3 h-3 text-primary"></i>
-                        </div>
-                        <div class="bg-white border border-gray-200 p-3 rounded-2xl rounded-tl-none shadow-sm flex gap-1.5 items-center">
-                            <div class="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0s"></div>
-                            <div class="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-                            <div class="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
-                        </div>
-                    `;
-                    messagesContainer.appendChild(wrapper);
-                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                    lucide.createIcons();
-                    return id;
-                }
-
-                function removeLoading(id) {
-                    const el = document.getElementById(id);
-                    if (el) el.remove();
-                }
-            }
-        });
-
-        function parseJsonList(value) {
-            if (!value) return [];
-            return Array.isArray(value) ? value : [];
-        }
-
-        function animateScore(targetScore) {
-            const scoreNumberEl = document.getElementById("scoreNumber");
-            const scoreRingProgress = document.getElementById("scoreRingProgress");
-
-            if (!targetScore || isNaN(targetScore)) {
-                scoreNumberEl.textContent = "–";
-                return;
-            }
-
-            const target = parseInt(targetScore, 10);
-            const circumference = 2 * Math.PI * 36; // r=36
-            const offset = circumference - (target / 100) * circumference;
-
-            // Animate the ring
-            setTimeout(() => {
-                scoreRingProgress.style.strokeDashoffset = offset;
-            }, 100);
-
-            // Animate the number count-up
-            let current = 0;
-            const duration = 1200;
-            const stepTime = 20;
-            const steps = duration / stepTime;
-            const increment = target / steps;
-
-            const counter = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(counter);
-                }
-                scoreNumberEl.textContent = Math.round(current) + "%";
-            }, stepTime);
-        }
-
-        function renderResults() {
-            // CHANGED: Reading from localStorage 'analysisResults' object
-            const rawData = localStorage.getItem('analysisResults');
-            console.log("Loading analysis data:", rawData);
-
-            if (!rawData) {
-                document.getElementById("summaryText").textContent = "No analysis data found. Please upload a resume first.";
-                return;
-            }
-
-            const data = JSON.parse(rawData);
-
-            const score = data.score || 0;
-            const matchLevel = data.matchLevel || "Match";
-            const tip = data.tip ? data.tip.replace(/^Pro Tip:\s*/i, '') : ""; // Remove prefix if meant for UI label
-
-            // Mapping lists
-            const matchedSkills = data.matchedSkills || [];
-            const missingSkills = data.missingSkills || [];
-
-            // Map Improvement Tips -> Areas to Develop
-            const areas = data.resumeImprovementTips || [];
-
-            // Map Skill Tips -> Recommendations
-            const recos = data.skillImprovementTips || [];
-
-            // Score animation
-            animateScore(score);
-
-            // Score badge styling
-            const scoreBadge = document.getElementById("scoreBadge");
-            const scoreLabel = document.getElementById("scoreLabel");
-            const scoreRingProgress = document.getElementById("scoreRingProgress");
-
-            scoreLabel.textContent = matchLevel;
-
-            scoreBadge.classList.remove("strong", "medium", "weak");
-            scoreRingProgress.classList.remove("medium", "weak");
-
-            if (score >= 75) {
-                scoreBadge.classList.add("strong");
-            } else if (score >= 50) {
-                scoreBadge.classList.add("medium");
-                scoreRingProgress.classList.add("medium");
-            } else {
-                scoreBadge.classList.add("weak");
-                scoreRingProgress.classList.add("weak");
-            }
-
-            // Summary
-            const summaryEl = document.getElementById("summaryText");
-            summaryEl.textContent = "Analysis complete. Review your strengths and areas for improvement below.";
-
-            // Matched skills
-            const matchedTags = document.getElementById("matchedTags");
-            matchedTags.innerHTML = "";
-            if (matchedSkills.length === 0) {
-                matchedTags.innerHTML = '<span class="tag">No matched skills yet</span>';
-            } else {
-                matchedSkills.forEach(skill => {
-                    const span = document.createElement("span");
-                    span.className = "tag tag-matched";
-                    span.textContent = skill;
-                    matchedTags.appendChild(span);
-                });
-            }
-
-            // Missing skills
-            const missingTags = document.getElementById("missingTags");
-            missingTags.innerHTML = "";
-            if (missingSkills.length === 0) {
-                missingTags.innerHTML = '<span class="tag">No gaps identified</span>';
-            } else {
-                missingSkills.forEach(skill => {
-                    const span = document.createElement("span");
-                    span.className = "tag tag-missing";
-                    span.textContent = skill;
-                    missingTags.appendChild(span);
-                });
-            }
-
-            // Tip
-            const tipText = document.getElementById("tipText");
-            if (tip) {
-                // Formatting: Title + content with line breaks
-                tipText.innerHTML = '<div style="font-weight: 700; margin-bottom: 4px;">Pro Tips</div>' +
-                    tip.replace(/\n/g, '<br>');
-            } else {
-                tipText.textContent = "No AI tip available for this scan.";
-            }
-
-            // Areas for improvement (Resume Tips)
-            const areasList = document.getElementById("areasList");
-            areasList.innerHTML = "";
-            if (areas.length === 0) {
-                areasList.innerHTML = '<li style="color:var(--text-muted)">No specific resume tips generated.</li>';
-            } else {
-                areas.forEach(a => {
-                    const li = document.createElement("li");
-                    li.textContent = a;
-                    areasList.appendChild(li);
-                });
-            }
-
-            // Recommendations (Skill Tips)
-            const recoList = document.getElementById("recoList");
-            recoList.innerHTML = "";
-            if (recos.length === 0) {
-                recoList.innerHTML = '<li style="color:var(--text-muted)">No specific skill recommendations.</li>';
-            } else {
-                recos.forEach(r => {
-                    const li = document.createElement("li");
-                    li.textContent = r;
-                    recoList.appendChild(li);
-                });
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            renderResults();
-            lucide.createIcons();
-        });
-    </script>
+    <script src="../js/chat-widget.js"></script>
 
 </body>
 

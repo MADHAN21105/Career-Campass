@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // 4. API Call
-                const response = await fetch('http://localhost:8080/api/cover-letter/generate', {
+                const response = await fetch(`${CONFIG.API_BASE_URL}/api/cover-letter/generate`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (error) {
                 console.error('Error:', error);
-                alert(`Failed to generate cover letter. Error: ${error.message}\n\nEnsure the backend is running on http://localhost:8080`);
+                alert(`Failed to generate cover letter. Error: ${error.message}\n\nEnsure the backend is running.`);
                 generateBtn.disabled = false;
                 generateBtn.innerHTML = originalText;
                 lucide.createIcons();
