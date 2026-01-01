@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Part 2: Rotating Text
         const newRotatingSpan = document.createElement('span');
         newRotatingSpan.id = 'rotating-text';
-        newRotatingSpan.className = 'text-primary inline-block whitespace-nowrap text-xl md:text-3xl';
+        newRotatingSpan.className = 'text-primary inline-block whitespace-nowrap text-3xl md:text-5xl';
 
         const currentWord = words[currentWordIndex];
         currentWord.split('').forEach(char => {
