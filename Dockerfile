@@ -10,4 +10,5 @@ FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/career-compass-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Use shell form to allow variable expansion for PORT (Render sets PORT env var)
+ENTRYPOINT java -Dserver.port=${PORT:-8080} -jar app.jar
