@@ -1,0 +1,907 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Career Compass – Career Match Report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Fonts & Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/resume-result.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        border: "hsl(var(--border))",
+                        input: "hsl(var(--input))",
+                        ring: "hsl(var(--ring))",
+                        background: "hsl(var(--background))",
+                        foreground: "hsl(var(--foreground))",
+                        primary: {
+                            DEFAULT: "hsl(var(--primary))",
+                            foreground: "hsl(var(--primary-foreground))",
+                        },
+                        secondary: {
+                            DEFAULT: "hsl(var(--secondary))",
+                            foreground: "hsl(var(--secondary-foreground))",
+                        },
+                        destructive: {
+                            DEFAULT: "hsl(var(--destructive))",
+                            foreground: "hsl(var(--destructive-foreground))",
+                        },
+                        muted: {
+                            DEFAULT: "hsl(var(--muted))",
+                            foreground: "hsl(var(--muted-foreground))",
+                        },
+                        accent: {
+                            DEFAULT: "hsl(var(--accent))",
+                            foreground: "hsl(var(--accent-foreground))",
+                        },
+                        popover: {
+                            DEFAULT: "hsl(var(--popover))",
+                            foreground: "hsl(var(--popover-foreground))",
+                        },
+                        card: {
+                            DEFAULT: "hsl(var(--card))",
+                            foreground: "hsl(var(--card-foreground))",
+                        },
+                    },
+                    borderRadius: {
+                        lg: "var(--radius)",
+                        md: "calc(var(--radius) - 2px)",
+                        sm: "calc(var(--radius) - 4px)",
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            :root {
+                --background: 0 0% 100%;
+                --foreground: 240 10% 3.9%;
+                --card: 0 0% 100%;
+                --card-foreground: 240 10% 3.9%;
+                --popover: 0 0% 100%;
+                --popover-foreground: 240 10% 3.9%;
+                --primary: 240 5.9% 10%;
+                --primary-foreground: 0 0% 98%;
+                --secondary: 240 4.8% 95.9%;
+                --secondary-foreground: 240 5.9% 10%;
+                --muted: 240 4.8% 95.9%;
+                --muted-foreground: 240 3.8% 46.1%;
+                --accent: 240 4.8% 95.9%;
+                --accent-foreground: 240 5.9% 10%;
+                --destructive: 0 84.2% 60.2%;
+                --destructive-foreground: 0 0% 98%;
+                --border: 240 5.9% 90%;
+                --input: 240 5.9% 90%;
+                --ring: 240 10% 3.9%;
+                --radius: 0.5rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --primary-dark: #4338ca;
+            --primary-glow: rgba(99, 102, 241, 0.12);
+
+            --surface: #ffffff;
+            --surface-secondary: #f8fafc;
+            --surface-tertiary: #f1f5f9;
+
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+
+            --success: #22c55e;
+            --success-bg: #ecfdf5;
+            --success-text: #047857;
+
+            --warning: #eab308;
+            --warning-bg: #fefce8;
+            --warning-text: #a16207;
+
+            --error: #dc2626;
+            --error-bg: #fef2f2;
+            --error-text: #b91c1c;
+
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--surface-secondary);
+            color: var(--text-primary);
+        }
+
+
+        /* HEADER STYLES REMOVED TO USE TAILWIND HEADER */
+
+
+        /* MAIN LAYOUT */
+        main {
+            padding: 20px 16px 30px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-title i {
+            color: var(--primary);
+        }
+
+        .page-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 0.6fr 1.4fr;
+            gap: 18px;
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            padding: 16px;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 0 0 3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* SCORE DISPLAY */
+        .score-display {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .score-ring {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            flex-shrink: 0;
+        }
+
+        .score-ring svg {
+            width: 70px;
+            height: 70px;
+            transform: rotate(-90deg);
+        }
+
+        .score-ring-bg {
+            fill: none;
+            stroke: var(--border);
+            stroke-width: 6;
+        }
+
+        .score-ring-progress {
+            fill: none;
+            stroke: var(--success);
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-dasharray: 226;
+            stroke-dashoffset: 226;
+            transition: stroke-dashoffset 1.2s ease-out, stroke 0.3s ease;
+        }
+
+        .score-ring-progress.medium {
+            stroke: var(--warning);
+        }
+
+        .score-ring-progress.weak {
+            stroke: var(--error);
+        }
+
+        .score-ring-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .score-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .score-badge.strong {
+            background: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .score-badge.medium {
+            background: var(--warning-bg);
+            color: var(--warning-text);
+        }
+
+        .score-badge.weak {
+            background: var(--error-bg);
+            color: var(--error-text);
+        }
+
+        .score-meta {
+            margin-top: 4px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .summary-text {
+            margin-top: 14px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .pillar-card {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary);
+            max-height: 250px;
+            overflow-y: auto;
+            transition: all 0.2s ease;
+        }
+
+        .pillar-card:hover {
+            background: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* CUSTOM SCROLLBAR FOR PILLARS */
+        .pillar-card::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .pillar-card::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .pillar-card::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .pillar-card::-webkit-scrollbar-thumb:hover {
+            background: #cbd5e1;
+        }
+
+        .pillar-label {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #1e293b;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            letter-spacing: 0.04em;
+        }
+
+        .pillar-text {
+            font-size: 0.85rem;
+            color: #334155;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .breakdown-container {
+            margin-top: 12px;
+            padding: 4px;
+            background: rgba(248, 250, 252, 0.4);
+            border-radius: var(--radius-sm);
+            border: 1px solid #e2e8f0;
+        }
+
+        .breakdown-item {
+            padding: 10px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .breakdown-item:hover {
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .breakdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breakdown-label {
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.82rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .breakdown-value {
+            color: #1e293b;
+            font-weight: 700;
+            font-size: 0.82rem;
+        }
+
+        .breakdown-skills-list {
+            margin-top: 8px;
+            display: none;
+            /* Toggle via JS */
+            flex-wrap: wrap;
+            gap: 4px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .mini-tag {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .mini-tag-matched {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .mini-tag-missing {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .breakdown-item.static {
+            cursor: default;
+        }
+
+        .breakdown-item.static:hover {
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .breakdown-arrow {
+            font-size: 0.9rem;
+            font-weight: 800;
+            transition: transform 0.3s ease;
+        }
+
+        .breakdown-arrow.expanded {
+            transform: rotate(90deg);
+        }
+
+        /* SECTIONS */
+        .section {
+            margin-top: 18px;
+        }
+
+        .section-title {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-title i {
+            font-size: 0.9rem;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            padding: 5px 11px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            background: var(--surface-tertiary);
+            color: var(--text-secondary);
+            transition: all 0.15s ease;
+        }
+
+        .tag:hover {
+            border-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .tag-matched {
+            border-color: #bbf7d0;
+            background: #f0fdf4;
+            color: #15803d;
+        }
+
+        .tag-missing {
+            border-color: #fecaca;
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        .bullet-list {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .bullet-list li {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .tip-box {
+            margin-top: 10px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, #fefce8, #fef9c3);
+            border: 1px solid #fde047;
+            font-size: 0.88rem;
+            color: var(--warning-text);
+        }
+
+        .tip-text {
+            line-height: 1.55;
+        }
+
+        /* ACTIONS */
+        .actions {
+            margin-top: 18px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn {
+            border-radius: 999px;
+            padding: 9px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: white;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            color: var(--text-secondary);
+        }
+
+        .btn:hover {
+            border-color: var(--primary-light);
+            color: var(--primary);
+            background: var(--surface-tertiary);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            color: white;
+        }
+
+        .session-info {
+            margin-top: 16px;
+            padding: 12px 14px;
+            background: var(--surface-tertiary);
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border-light);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar (Standard from Index) -->
+    <header
+        class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div class="container flex h-14 max-w-screen-2xl items-center justify-between px-4 mx-auto">
+            <!-- Left Section: Logo + Desktop Nav -->
+            <div class="flex items-center gap-8">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2 font-bold no-underline text-inherit">
+                    <img src="../images/logo.png" alt="Career Compass Logo" class="w-12 h-12 rounded-full">
+                    <span class="hidden sm:inline-block">Career Compass</span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+                    <a href="resume-analysis.html"
+                        class="transition-colors text-foreground hover:text-primary no-underline">Job Analysis Fit</a>
+                    <a href="cover-letter-generator.html"
+                        class="transition-colors text-foreground hover:text-primary no-underline">Cover Letter
+                        Generator</a>
+                    <a href="ai-career-coach.html"
+                        class="transition-colors text-foreground hover:text-primary no-underline">AI Career Coach</a>
+                    <a href="resume-guide.html"
+                        class="transition-colors text-foreground hover:text-primary no-underline">Resume Guide</a>
+                </nav>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn"
+                class="md:hidden inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9">
+                <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden border-t border-border bg-background p-4 absolute w-full left-0 top-14 shadow-lg">
+            <nav class="flex flex-col gap-4">
+                <a href="resume-analysis.html" class="text-sm font-medium hover:text-primary">Job Analysis Fit</a>
+                <a href="cover-letter-generator.html" class="text-sm font-medium hover:text-primary">Cover Letter
+                    Generator</a>
+                <a href="ai-career-coach.html" class="text-sm font-medium hover:text-primary">AI Career Coach</a>
+                <a href="resume-guide.html" class="text-sm font-medium hover:text-primary">Resume Guide</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="page-header" style="text-align: center;">
+                <h1 class="page-title" style="justify-content: center;">
+                    Job Match Report
+                </h1>
+            </div>
+
+
+            <div class="layout">
+
+                <!-- LEFT: Job Match & Fit -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">Overall Job Fit</h2>
+                            <p class="card-subtitle">Match score and technical skill alignment</p>
+                        </div>
+                    </div>
+
+                    <div class="score-display">
+                        <div class="score-ring">
+                            <svg viewBox="0 0 80 80">
+                                <circle class="score-ring-bg" cx="40" cy="40" r="36" />
+                                <circle id="scoreRingProgress" class="score-ring-progress" cx="40" cy="40" r="36" />
+                            </svg>
+                            <div class="score-ring-value" id="scoreNumber">–</div>
+                        </div>
+                        <div>
+                            <div id="scoreBadge" class="score-badge strong">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <span id="scoreLabel">Match</span>
+                            </div>
+                            <div class="score-meta">Based on skills and experience alignment</div>
+                        </div>
+                    </div>
+
+                    <!-- Summary content is now integrated into the Strategic Analysis pillars -->
+
+                    <!--
+                <div class="section">
+                    <div class="section-title">
+                        <i class="bi bi-check-circle text-success"></i>
+                        Your Strengths
+                    </div>
+                    <ul id="strengthsList" class="bullet-list">
+                    </ul>
+                </div>
+                -->
+
+                    <div class="section">
+                        <div class="section-title">
+                            <i class="bi bi-patch-check"></i>
+                            Matched Skills
+                        </div>
+                        <div id="matchedTags" class="tag-list">
+                            <!-- matched skill tags -->
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            Skill Gaps
+                        </div>
+                        <div id="missingTags" class="tag-list">
+                            <!-- missing skill tags -->
+                        </div>
+                    </div>
+
+                    <div id="matchBreakdown" class="section">
+                        <!-- match breakdown will be injected here -->
+                    </div>
+
+
+
+                    <div class="actions space-y-3">
+                        <a href="resume-analysis.html"
+                            class="flex items-center justify-center w-full py-2.5 text-sm font-bold text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition-all gap-2 group border border-transparent"
+                            id="tryDifferentJobBtn">
+                            <i class="bi bi-arrow-repeat text-lg"></i>
+                            Analyze Different Job
+                        </a>
+
+                        <a href="cover-letter-generator.html"
+                            class="flex items-center justify-center w-full py-2.5 text-sm font-bold text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition-all gap-2 group border border-transparent">
+                            <i class="bi bi-file-earmark-text text-lg"></i>
+                            Cover Letter Generator
+                        </a>
+
+                        <a href="resume-guide.html"
+                            class="flex items-center justify-center w-full py-2.5 text-sm font-bold text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition-all gap-2 group border border-transparent">
+                            <i class="bi bi-book text-lg"></i>
+                            Resume Guide
+                        </a>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Resume Improvements -->
+                <div class="card">
+                    <div class="tip-box" id="tipBox" style="margin-bottom: 20px;">
+                        <div class="tip-text" id="tipText">
+                            <!-- AI tip -->
+                        </div>
+                    </div>
+
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">How to Improve</h2>
+                            <p class="card-subtitle">Actionable steps to boost your fit</p>
+                        </div>
+                    </div>
+
+
+
+                    <div class="section">
+                        <div class="section-title">
+                            <i class="bi bi-arrow-up-circle"></i>
+                            Areas to Develop
+                        </div>
+                        <ul id="areasList" class="bullet-list">
+                            <!-- areas injected -->
+                        </ul>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">
+                            <i class="bi bi-list-check"></i>
+                            Recommended Next Steps
+                        </div>
+                        <ul id="recoList" class="bullet-list">
+                            <!-- recommendations injected -->
+                        </ul>
+                    </div>
+
+                    <div class="session-info" id="sessionInfo">
+                        This report uses the resume and job description from your current session.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Chat Widget -->
+    <div id="chat-widget-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
+
+        <!-- Chat Window -->
+        <div id="chat-window"
+            class="hidden w-[350px] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col transition-all duration-300 origin-bottom-right transform scale-95 opacity-0 font-sans">
+            <!-- Header -->
+            <div class="bg-blue-600 p-4 rounded-t-2xl flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                        <i data-lucide="bot" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-sm">Career Assistant</h3>
+                        <p class="text-white/80 text-[10px]">Online</p>
+                    </div>
+                </div>
+                <button id="close-chat" class="text-white/80 hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Messages -->
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto bg-gray-50/50 flex flex-col gap-3">
+                <!-- Welcome Message -->
+                <div class="flex gap-3">
+                    <div
+                        class="w-7 h-7 rounded-full bg-blue-600/10 flex items-center justify-center flex-shrink-0 mt-1">
+                        <i data-lucide="bot" class="w-3 h-3 text-blue-600"></i>
+                    </div>
+                    <div
+                        class="bg-white border border-gray-200 p-3 rounded-2xl shadow-sm text-xs text-gray-700 leading-relaxed max-w-[85%] rounded-tl-none">
+                        👋 Hi! I can help you understand your resume score or give tips to improve. What's on your mind?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-3 bg-white border-t border-gray-100 rounded-b-2xl">
+                <div class="relative flex items-end gap-2">
+                    <textarea id="chat-input" rows="1"
+                        class="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-xs focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 resize-none placeholder:text-gray-400 max-h-24"
+                        placeholder="Ask a question..."></textarea>
+                    <button id="send-btn"
+                        class="p-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors shadow-sm mb-0.5">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <div class="text-[9px] text-center text-gray-400 mt-2">
+                    AI can make mistakes. Verify important info.
+                </div>
+            </div>
+        </div>
+
+        <!-- Toggle Button -->
+        <button id="chat-toggle"
+            class="w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg hover:shadow-xl hover:bg-blue-700 transition-all flex items-center justify-center group relative z-50">
+            <div class="relative w-6 h-6">
+                <!-- Message Icon -->
+                <i data-lucide="message-square"
+                    class="w-6 h-6 absolute inset-0 transition-all duration-300 rotate-0 scale-100 group-hover:rotate-90 group-hover:scale-0"></i>
+                <!-- Chevron Icon (Hover) -->
+                <i data-lucide="chevron-up"
+                    class="w-6 h-6 absolute inset-0 transition-all duration-300 -rotate-90 scale-0 group-hover:rotate-0 group-hover:scale-100"></i>
+            </div>
+            <!-- Notification Dot -->
+            <span class="absolute top-0 right-0 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full"></span>
+        </button>
+    </div>
+
+
+
+
+
+
+
+
+    <style>
+        .btn-outline-primary {
+            background-color: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Chat Widget Specific Styles */
+        #chat-window.open {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        #chat-messages::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #chat-messages::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+    </style>
+
+    <script src="../js/chat-widget.js"></script>
+
+</body>
+
+</html>
