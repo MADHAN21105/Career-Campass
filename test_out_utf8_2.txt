@@ -1,0 +1,155 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.careercompass:career-compass >------------------
+[INFO] Building career-compass 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ career-compass ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 34 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ career-compass ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ career-compass ---
+[INFO] skip non existing resourceDirectory D:\career_campass\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ career-compass ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ career-compass ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.careercompass.careercompass.service.MatchServiceTest
+16:25:05.648 [main] INFO com.careercompass.careercompass.service.MatchService -- === Enhanced Analysis with Correlation Detection Started ===
+16:25:05.660 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Calculating Hybrid Scoring Components...
+16:25:05.664 [main] INFO com.careercompass.careercompass.service.MatchService --    - Semantic Score: 80.00%
+16:25:05.665 [main] INFO com.careercompass.careercompass.service.MatchService --    - Hard Skills Score: 0.00%
+16:25:05.666 [main] INFO com.careercompass.careercompass.service.MatchService --    - Soft Skills Score: 80.00%
+16:25:05.667 [main] INFO com.careercompass.careercompass.service.MatchService --    - Metadata Score: 60.00%
+16:25:05.669 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Final Hybrid Score: 45.0%
+16:25:05.673 [main] INFO com.careercompass.careercompass.service.MatchService -- === Analysis Complete: Score = 45.0 ===
+16:25:05.673 [main] INFO com.careercompass.careercompass.service.MatchService -- Matched: 0 | Missing: 1
+16:25:05.698 [main] INFO com.careercompass.careercompass.service.MatchService -- === Enhanced Analysis with Correlation Detection Started ===
+16:25:05.702 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Calculating Hybrid Scoring Components...
+16:25:05.703 [main] INFO com.careercompass.careercompass.service.MatchService --    - Semantic Score: 80.00%
+16:25:05.704 [main] INFO com.careercompass.careercompass.service.MatchService --    - Hard Skills Score: 100.00%
+16:25:05.704 [main] INFO com.careercompass.careercompass.service.MatchService --    - Soft Skills Score: 80.00%
+16:25:05.704 [main] INFO com.careercompass.careercompass.service.MatchService --    - Metadata Score: 60.00%
+16:25:05.704 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Final Hybrid Score: 85.0%
+16:25:05.706 [main] INFO com.careercompass.careercompass.service.MatchService -- === Analysis Complete: Score = 85.0 ===
+16:25:05.706 [main] INFO com.careercompass.careercompass.service.MatchService -- Matched: 3 | Missing: 0
+16:25:05.732 [main] INFO com.careercompass.careercompass.service.MatchService -- === Enhanced Analysis with Correlation Detection Started ===
+16:25:05.734 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Calculating Hybrid Scoring Components...
+16:25:05.734 [main] INFO com.careercompass.careercompass.service.MatchService --    - Semantic Score: 80.00%
+16:25:05.736 [main] INFO com.careercompass.careercompass.service.MatchService --    - Hard Skills Score: 80.00%
+16:25:05.736 [main] INFO com.careercompass.careercompass.service.MatchService --    - Soft Skills Score: 80.00%
+16:25:05.736 [main] INFO com.careercompass.careercompass.service.MatchService --    - Metadata Score: 60.00%
+16:25:05.736 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Final Hybrid Score: 77.0%
+16:25:05.737 [main] INFO com.careercompass.careercompass.service.MatchService -- === Analysis Complete: Score = 77.0 ===
+16:25:05.737 [main] INFO com.careercompass.careercompass.service.MatchService -- Matched: 1 | Missing: 0
+16:25:05.742 [main] INFO com.careercompass.careercompass.service.MatchService -- === Enhanced Analysis with Correlation Detection Started ===
+16:25:05.743 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Calculating Hybrid Scoring Components...
+16:25:05.744 [main] INFO com.careercompass.careercompass.service.MatchService --    - Semantic Score: 80.00%
+16:25:05.744 [main] INFO com.careercompass.careercompass.service.MatchService --    - Hard Skills Score: 0.00%
+16:25:05.744 [main] INFO com.careercompass.careercompass.service.MatchService --    - Soft Skills Score: 80.00%
+16:25:05.745 [main] INFO com.careercompass.careercompass.service.MatchService --    - Metadata Score: 60.00%
+16:25:05.745 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Final Hybrid Score: 45.0%
+16:25:05.746 [main] INFO com.careercompass.careercompass.service.MatchService -- === Analysis Complete: Score = 45.0 ===
+16:25:05.746 [main] INFO com.careercompass.careercompass.service.MatchService -- Matched: 0 | Missing: 1
+16:25:05.754 [main] INFO com.careercompass.careercompass.service.MatchService -- === Enhanced Analysis with Correlation Detection Started ===
+16:25:05.756 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Calculating Hybrid Scoring Components...
+16:25:05.756 [main] INFO com.careercompass.careercompass.service.MatchService --    - Semantic Score: 80.00%
+16:25:05.757 [main] INFO com.careercompass.careercompass.service.MatchService --    - Hard Skills Score: 66.67%
+16:25:05.757 [main] INFO com.careercompass.careercompass.service.MatchService --    - Soft Skills Score: 80.00%
+16:25:05.757 [main] INFO com.careercompass.careercompass.service.MatchService --    - Metadata Score: 60.00%
+16:25:05.757 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Final Hybrid Score: 72.0%
+16:25:05.758 [main] INFO com.careercompass.careercompass.service.MatchService -- === Analysis Complete: Score = 72.0 ===
+16:25:05.758 [main] INFO com.careercompass.careercompass.service.MatchService -- Matched: 2 | Missing: 1
+16:25:05.764 [main] INFO com.careercompass.careercompass.service.MatchService -- === Enhanced Analysis with Correlation Detection Started ===
+16:25:05.765 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Calculating Hybrid Scoring Components...
+16:25:05.766 [main] INFO com.careercompass.careercompass.service.MatchService --    - Semantic Score: 80.00%
+16:25:05.767 [main] INFO com.careercompass.careercompass.service.MatchService --    - Hard Skills Score: 23.08%
+16:25:05.767 [main] INFO com.careercompass.careercompass.service.MatchService --    - Soft Skills Score: 100.00%
+16:25:05.767 [main] INFO com.careercompass.careercompass.service.MatchService --    - Metadata Score: 60.00%
+16:25:05.767 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Final Hybrid Score: 57.0%
+16:25:05.768 [main] INFO com.careercompass.careercompass.service.MatchService -- === Analysis Complete: Score = 57.0 ===
+16:25:05.768 [main] INFO com.careercompass.careercompass.service.MatchService -- Matched: 1 | Missing: 1
+16:25:05.768 [main] INFO com.careercompass.careercompass.service.MatchService -- === Enhanced Analysis with Correlation Detection Started ===
+16:25:05.768 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Calculating Hybrid Scoring Components...
+16:25:05.768 [main] INFO com.careercompass.careercompass.service.MatchService --    - Semantic Score: 80.00%
+16:25:05.768 [main] INFO com.careercompass.careercompass.service.MatchService --    - Hard Skills Score: 76.92%
+16:25:05.768 [main] INFO com.careercompass.careercompass.service.MatchService --    - Soft Skills Score: 0.00%
+16:25:05.768 [main] INFO com.careercompass.careercompass.service.MatchService --    - Metadata Score: 60.00%
+16:25:05.768 [main] INFO com.careercompass.careercompass.service.MatchService -- ? Final Hybrid Score: 64.0%
+16:25:05.770 [main] INFO com.careercompass.careercompass.service.MatchService -- === Analysis Complete: Score = 64.0 ===
+16:25:05.770 [main] INFO com.careercompass.careercompass.service.MatchService -- Matched: 1 | Missing: 1
+[ERROR] Tests run: 8, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 1.107 s <<< FAILURE! -- in com.careercompass.careercompass.service.MatchServiceTest
+[ERROR] com.careercompass.careercompass.service.MatchServiceTest.testAnalyze_EmptyResume_ShouldThrowException -- Time elapsed: 0.016 s <<< ERROR!
+org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
+
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at com.careercompass.careercompass.service.MatchServiceTest.setUp(MatchServiceTest.java:42)
+  2. -> at com.careercompass.careercompass.service.MatchServiceTest.setUp(MatchServiceTest.java:43)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+	at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:197)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+[ERROR] com.careercompass.careercompass.service.MatchServiceTest.testAnalyze_EmptyJobDescription_ShouldThrowException -- Time elapsed: 0.005 s <<< ERROR!
+org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
+
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at com.careercompass.careercompass.service.MatchServiceTest.setUp(MatchServiceTest.java:42)
+  2. -> at com.careercompass.careercompass.service.MatchServiceTest.setUp(MatchServiceTest.java:43)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+	at org.mockito.junit.jupiter.MockitoExtension.afterEach(MockitoExtension.java:197)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   MatchServiceTest.testAnalyze_EmptyJobDescription_ShouldThrowException ╗ UnnecessaryStubbing 
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at com.careercompass.careercompass.service.MatchServiceTest.setUp(MatchServiceTest.java:42)
+  2. -> at com.careercompass.careercompass.service.MatchServiceTest.setUp(MatchServiceTest.java:43)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+[ERROR]   MatchServiceTest.testAnalyze_EmptyResume_ShouldThrowException ╗ UnnecessaryStubbing 
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at com.careercompass.careercompass.service.MatchServiceTest.setUp(MatchServiceTest.java:42)
+  2. -> at com.careercompass.careercompass.service.MatchServiceTest.setUp(MatchServiceTest.java:43)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+[INFO] 
+[ERROR] Tests run: 8, Failures: 0, Errors: 2, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.513 s
+[INFO] Finished at: 2025-12-29T16:25:05+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project career-compass: 
+[ERROR] 
+[ERROR] Please refer to D:\career_campass\target\surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
