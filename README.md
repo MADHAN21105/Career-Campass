@@ -1,19 +1,20 @@
 # 🚀 Career Compass – AI Job Match & Career Assistant
 
-Career Compass is an **AI-powered job matching and career guidance platform** that helps students and early professionals evaluate how well their resume matches a job description and understand **what skills they need to improve to become job-ready**.
+**Career Compass** is an AI-powered job matching and career guidance platform that helps students and early professionals evaluate how well their resume matches a job description and understand **what skills they need to improve to become job-ready**.
 
-The project is built using a **Retrieval Augmented Generation (RAG) architecture** with **Pinecone vector search and embeddings**, combined with a **Java Spring Boot backend**, to deliver **accurate, explainable, and context-aware career guidance**.
+The project is built using a **Retrieval Augmented Generation (RAG)** architecture with **Pinecone vector search and embeddings**, combined with a **Java Spring Boot backend**, to deliver **accurate, explainable, and context-aware career guidance**.
+
+### 🌐 [Live Demo](https://career-campass-dnah.onrender.com/)
 
 ---
 
 ## 🎯 Problem Statement
 
 Most students apply for jobs without clear insight into:
-
-- Whether they actually meet job skill requirements  
-- Why they are rejected or shortlisted  
-- Which skills they must learn next  
-- How to tailor resumes for specific roles  
+- Whether they actually meet job skill requirements
+- Why they are rejected or shortlisted
+- Which skills they must learn next
+- How to tailor resumes for specific roles
 
 Traditional tools rely on basic keyword matching or generic AI feedback.  
 **Career Compass solves this using RAG + Pinecone + Embeddings for reliable and meaningful results.**
@@ -25,25 +26,38 @@ Traditional tools rely on basic keyword matching or generic AI feedback.
 RAG improves AI accuracy by combining **information retrieval** with **text generation**.
 
 ### RAG works in three steps:
-1. **Retrieval** – Fetch relevant career knowledge from Pinecone  
-2. **Augmentation** – Add retrieved knowledge to the AI prompt  
-3. **Generation** – Generate a grounded response using Groq AI  
+1.  **Retrieval** – Fetch relevant career knowledge from Pinecone
+2.  **Augmentation** – Add retrieved knowledge to the AI prompt
+3.  **Generation** – Generate a grounded response using Groq AI
 
 This approach prevents hallucination and ensures answers are based on **real career data**.
 
 ---
 
 ## 🧩 RAG Architecture in Career Compass
+
 ```mermaid
-flowchart TD
-    A[Career Knowledge CSV Snippets] --> B[Embedding Service]
-    B --> C[Pinecone Vector Database]
-    D[User Question / Resume / JD] --> E[Embedding Generation]
-    E --> C
-    C --> F[Semantic Retrieval]
-    F --> G[Context-Augmented Prompt]
-    G --> H[Groq AI LLM]
-    H --> I[Final Career Guidance Response]
+graph TD
+    subgraph Knowledge_Base [Knowledge Base Ingestion]
+        direction TB
+        A[Career Data CSV] -->|Parse| B(Text Snippets)
+        B -->|Generate Embedding| C[Embedding Model]
+        C -->|Upsert Vectors| D[(Pinecone DB)]
+    end
+
+    subgraph User_Query_Flow [User Interaction]
+        direction TB
+        E[User Query / Resume] -->|Extract Text| F(Raw Text)
+        F -->|Generate Embedding| G[Query Embedding]
+        G -->|Vector Store Query| D
+        D -->|Retrieve Top-K Matches| H[Relevant Context]
+        H -->|Augment Prompt| I[Final Prompt]
+        I -->|Send to LLM| J[Groq AI]
+        J -->|Generate Response| K[Expert Career Advice]
+    end
+
+    style D fill:#eeebff,stroke:#6366f1,stroke-width:2px
+    style J fill:#fff7ed,stroke:#f97316,stroke-width:2px
 ```
 
 ---
@@ -53,9 +67,9 @@ flowchart TD
 Embeddings are numerical vector representations of text meaning.
 
 In this project:
-- Career knowledge snippets are converted into embeddings  
-- Resume text, job descriptions, and user questions are embedded  
-- Pinecone performs **semantic similarity search**  
+-   Career knowledge snippets are converted into embeddings
+-   Resume text, job descriptions, and user questions are embedded
+-   Pinecone performs **semantic similarity search**
 
 This enables **meaning-based retrieval**, not just keyword matching.
 
@@ -66,239 +80,209 @@ This enables **meaning-based retrieval**, not just keyword matching.
 Pinecone is used as the **vector database** for RAG.
 
 ### Why Pinecone?
-- Fast and scalable vector search  
-- Semantic (meaning-based) retrieval  
-- Ideal for RAG architectures  
+-   Fast and scalable vector search
+-   Semantic (meaning-based) retrieval
+-   Ideal for RAG architectures
 
 ### Stored in Pinecone:
-- Embedded career guidance snippets  
-- Metadata such as topic, category, and keywords  
+-   Embedded career guidance snippets
+-   Metadata such as topic, category, and keywords
 
 ---
 
 ## ⚙️ Core Features
 
-- Resume & Job Description analysis  
-- Match score with fit level (Strong / Medium / Weak)  
-- Clear matched and missing skill lists  
-- AI-powered career coaching using RAG  
-- Context-aware chatbot  
-- Cover letter generator aligned with JD and resume  
-- PDF resume upload and text extraction  
+-   ✅ **Resume & Job Description Analysis**: Get a match score with fit level (Strong / Medium / Weak).
+-   ✅ **Skill Gap Analysis**: Clear lists of matched and missing skills.
+-   ✅ **AI Career Coach**: Context-aware chatbot using RAG.
+-   ✅ **Cover Letter Generator**: Auto-generates professional letters aligned with your JD.
+-   ✅ **PDF Parsing**: Securely uploads and extracts text from PDF resumes.
 
 ---
 
 ## ✉️ Cover Letter Generator
 
 Career Compass includes an **AI-powered cover letter generator**:
-
-- Uses resume + job description  
-- Retrieves relevant context using RAG  
-- Generates professional, role-specific cover letters  
-- Avoids generic or exaggerated content  
+-   Uses resume + job description
+-   Retrieves relevant context using RAG
+-   Generates professional, role-specific cover letters
+-   Avoids generic or exaggerated content
 
 ---
+
 ## 🏗️ System Architecture Overview
 
 ```mermaid
-flowchart TD
-    A["Frontend (HTML CSS JavaScript)"] --> B["Spring Boot REST APIs"]
-    B --> C["Resume and Job Description Processing"]
-    C --> D["Embedding and Pinecone Retrieval - RAG"]
-    D --> E["Groq AI Reasoning"]
-    E --> F["Final Output: Score Gaps Guidance"]
+graph LR
+    Client((User Browser)) -->|HTTP Request| FE[Frontend HTML/JS]
+    
+    subgraph Backend_Infrastructure [Spring Boot Backend]
+        FE -->|REST API| CTL[Controllers]
+        CTL -->|Process Data| SVC[Service Layer]
+        
+        subgraph Logic_Core [Core Logic]
+            SVC -->|PDF Extraction| PDF[Apache PDFBox]
+            SVC -->|Vector Ops| VEC[Embedding Service]
+            SVC -->|Inference| AI[Groq Client]
+        end
+    end
+    
+    subgraph Cloud_Services [External Services]
+        VEC <-->|Search & Store| PINECONE[(Pinecone DB)]
+        AI <-->|LLM Request| GROQ[Groq AI Cloud]
+    end
+
+    classDef primary fill:#f0f9ff,stroke:#0ea5e9,stroke-width:2px;
+    classDef database fill:#fdf4ff,stroke:#d946ef,stroke-width:2px;
+    classDef cloud fill:#f0fdf4,stroke:#22c55e,stroke-width:2px;
+    
+    class FE,CTL,SVC primary;
+    class PINECONE database;
+    class GROQ cloud;
 ```
 
 ---
 
 ## 🔌 Backend API Endpoints
 
-### Analyze Resume vs Job Description
+### 1. Analyze Resume vs Job Description
+**POST** `/api/analyze`
 
-#### POST /api/upload-resume
-Uploads PDF resume and extracts text using PDFBox.
-
----
-
-### POST /api/analyze
-Input:
-{
-  "jobDescription": "",
-  "resumeText": ""
-}
-
-**Input**
+**Input:**
 ```json
 {
-  "jobDescription": "",
-  "resumeText": ""
+  "jobDescription": "Senior Software Engineer...",
+  "resumeText": "Experienced Java Developer..."
 }
 ```
-**Output**
+
+**Output:**
 ```json
 {
-  "score": 0,
-  "matchLevel": "Strong | Medium | Weak",
-  "matchedSkills": [],
-  "missingSkills": [],
-  "summary": "",
-  "recommendations": []
+  "score": 85,
+  "matchLevel": "Strong",
+  "matchedSkills": ["Java", "Spring Boot", "SQL"],
+  "missingSkills": ["Kubernetes", "AWS"],
+  "summary": "Strong candidate but lacks cloud experience...",
+  "recommendations": ["Learn AWS basics", "Get certified in K8s"]
 }
 ```
----
 
-### 🧠 Career Coach (RAG Chat)
-```
-POST /api/ask
-```
+### 2. Career Coach (RAG Chat)
+**POST** `/api/ask`
 Provides **context-aware career guidance** grounded using **Pinecone retrieval and embeddings**.
 
----
-
-### ✉️ Cover Letter Generator
-```
-POST /api/cover-letter
-```
-
+### 3. Cover Letter Generator
+**POST** `/api/cover-letter`
 Generates a **tailored cover letter** using the resume, job description, and retrieved RAG context.
+
+### 4. Upload Resume
+**POST** `/api/upload-resume`
+Uploads PDF resume and extracts text using PDFBox.
 
 ---
 
 ## 🧰 Tech Stack
 
 ### Backend
-- Java 17  
-- Spring Boot  
-- Groq AI (LLM)  
-- Apache PDFBox  
+-   **Language**: Java 17
+-   **Framework**: Spring Boot 3
+-   **AI**: Groq AI (LLM)
+-   **Utils**: Apache PDFBox
 
 ### AI & Retrieval
-- Retrieval Augmented Generation (RAG)  
-- Pinecone Vector Database  
-- Text Embeddings  
+-   **Architecture**: Retrieval Augmented Generation (RAG)
+-   **Vector DB**: Pinecone
+-   **Embeddings**: High-dimensional text embeddings
 
 ### Frontend
-- HTML  
-- CSS  
-- Vanilla JavaScript  
+-   **Stack**: HTML5, Vanilla CSS, JavaScript
+-   **Styling**: Modern UI with Responsive Design
 
 ### Build & Tools
-- Maven Wrapper  
-- Git  
-- Postman  
+-   **Build**: Maven
+-   **Version Control**: Git
+-   **Container**: Docker support
 
 ---
 
 ## ⚙️ Setup & Execution
 
 ### Prerequisites
-- Java JDK 17 or later  
-- Git  
+-   Java JDK 17 or later
+-   Git
+-   Maven (optional, wrapper included)
 
----
-
-### Clone Repository
+### 1. Clone Repository
 ```bash
 git clone https://github.com/MADHAN21105/Career-Campass.git
 cd Career-Campass
 ```
----
-### Configure Groq API
 
-Edit the following file:✅ src/main/resources/application.propertiessrc/main/resources/application.properties
-
-Add your Groq API key:
-
+### 2. Configure API Keys
+Edit `src/main/resources/application.properties`:
 ```properties
+# AI Configuration
 groq.api.key=YOUR_GROQ_API_KEY
-```
----
 
-### Configure Pinecone
-Add the following Pinecone configuration in the same file:
-```
+# Pinecone Configuration
 pinecone.api.key=YOUR_PINECONE_API_KEY
 pinecone.environment=YOUR_ENVIRONMENT
 pinecone.index=career-compass
 ```
----
 
-### Run Application
-Use the Maven Wrapper included in the project:
-```
+### 3. Run Application
+Use the Maven Wrapper:
+```bash
 ./mvnw spring-boot:run
 ```
----
 
-### Open in Browser
-After the application starts successfully
+### 4. Open in Browser
+Visit the local server:
 ```
-open:http://localhost:8080
+http://localhost:8080
 ```
+
 ---
 
 ## 📁 Project Structure
-```
+
+```bash
 Career-Campass
 │
 ├── src/main/java/com/careercompass/careercompass
-│   ├── config          # Configuration classes (CORS, AppConfig)
-│   ├── controller      # REST API Controllers
-│   ├── dto             # Data Transfer Objects
-│   ├── service         # Business Logic & AI Services
-│   ├── exception       # Global Exception Handling
+│   ├── config          # App Config & CORS
+│   ├── controller      # REST API Endpoints
+│   ├── dto             # Data Transfer Model
+│   ├── service         # Business Logic & RAG Integration
+│   ├── exception       # Global Error Handling
 │   └── CareerCompassApplication.java
 │
 ├── src/main/resources
-│   ├── data            # CSV Knowledge Base (Skills, Roles)
-│   ├── static          # Frontend Assets
-│   │   ├── html        # HTML Pages (Resume, Chat, Cover Letter)
-│   │   ├── css         # Stylesheets
-│   │   ├── js          # Frontend Logic & API calls
-│   │   └── index.html  # Entry point
-│   └── application.properties
+│   ├── data            # Knowledge Base (CSVs)
+│   ├── static          # Frontend (HTML/JS/CSS)
+│   └── application.properties # Config file
 │
-├── pom.xml             # Maven Dependencies
-├── Dockerfile          # Container Configuration
-└── README.md
+├── pom.xml             # Dependencies
+├── Dockerfile          # Docker setup
+└── README.md           # Documentation
 ```
+
 ---
 
 ## 🎓 Educational Value
 
-### This project demonstrates:
-
-Practical implementation of Retrieval Augmented Generation (RAG)
-
-Usage of Pinecone vector search and embeddings
-
-Responsible and grounded AI integration
-
-Full-stack Java application development
-
-Explainable and interview-defensible AI architectures
+This project demonstrates:
+1.  **Practical RAG Implementation**: Real-world usage of vector search.
+2.  **Full-Stack Java**: robust Spring Boot backend with clean frontend integration.
+3.  **Explainable AI**: Grounded responses that reduce hallucinations.
+4.  **System Design**: usage of Microservices architecture patterns (Service/Controller layers).
 
 ---
-
 
 ## 👨‍💻 Author
 
-Madhan S
-
+**Madhan S**  
 Final-Year Engineering Student | Java Backend Developer
 
-My GitHub: https://github.com/MADHAN21105  
-
----
-
-
-
-
-
-
-
-
-
-
-
-
+[GitHub Profile](https://github.com/MADHAN21105)
