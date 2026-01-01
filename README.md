@@ -401,12 +401,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-## 📄 License
-
-This project is open source and available under the MIT License.
-
----
-
 ## 👨‍💻 Author
 
 **Madhan S**  
@@ -421,6 +415,6 @@ Final-Year Engineering Student | Java Backend Developer
 
 ### ⭐ Star this repo if you find it helpful!
 
-Made with ❤️ using Java, Spring Boot, Pinecone & Groq AI
+Made BY MADHAN S using Java, Spring Boot, Pinecone & Groq AI
 
 </div>
