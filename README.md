@@ -92,11 +92,41 @@ Pinecone is used as the **vector database** for RAG.
 
 ## ⚙️ Core Features
 
--   ✅ **Resume & Job Description Analysis**: Get a match score with fit level (Strong / Medium / Weak).
--   ✅ **Skill Gap Analysis**: Clear lists of matched and missing skills.
--   ✅ **AI Career Coach**: Context-aware chatbot using RAG.
--   ✅ **Cover Letter Generator**: Auto-generates professional letters aligned with your JD.
--   ✅ **PDF Parsing**: Securely uploads and extracts text from PDF resumes.
+-   ✅ **ATS-Style Match Score**: Get a weighted score (0-100%) based on industry-standard matching algorithms.
+-   ✅ **Resume & Job Fit Analysis**: Deep-dive analysis of how well you align with a specific role.
+-   ✅ **Skill Gap Analysis**: Automated identification of **Matched** and **Missing** skills (Mandatory vs. Preferred).
+-   ✅ **Semantic Bridging**: AI-powered matching that recognizes related skills (e.g., `React` -> `Frontend`).
+-   ✅ **AI Career Coach**: Interactive RAG-based chatbot for personalized career advice.
+-   ✅ **Actionable Recommendations**: Clear steps to improve your resume and targeted learning paths.
+-   ✅ **PDF Extraction**: Seamless text parsing from PDF documents using Apache PDFBox.
+
+---
+
+## 📊 Detailed Resume Analysis & Scoring Logic
+
+Career Compass uses a sophisticated **weighted ATS-style scoring engine** to provide an accurate representation of candidate fit.
+
+### 1. The Weighted Score Breakdown (100%)
+The final Match Score is calculated across four key pillars:
+
+| Pillar | Weight | Description |
+| :--- | :--- | :--- |
+| **Hard Skills** | **60%** | Critical analysis of Mandatory vs. Preferred skills found in the resume. |
+| **Job Title Alignment**| **15%** | Semantic similarity between the target job title and your career history. |
+| **Education Match** | **15%** | Hierarchical check (PhD > Master > Bachelor) against JD requirements. |
+| **Semantic Context** | **10%** | Overall cosine similarity of the entire resume content vs. job description. |
+
+### 2. Intelligent Skill Matching
+Unlike simple keyword scanners, Career Compass uses **Vector Semantic Search**:
+- **Mandatory Skills**: Missing critical skills result in a dynamic penalty to the overall score.
+- **Semantic Mapping**: If the JD asks for "Frontend" and your resume mentions "Vue.js", the system recognizes the overlap using **Pinecone vector similarity**.
+- **Data Authority**: Gaps are cross-referenced with a local **authoritative knowledge base** to provide validated career tips.
+
+### 3. Match Levels
+- 🏆 **Excellent Match (80%+)**: Perfect alignment, ready for immediate application.
+- 🥇 **Strong Match (65-79%)**: High potential, minor gaps to address.
+- 🥈 **Good Match (45-64%)**: Capable candidate, requires tailoring for specific requirements.
+- 🥉 **Fair/Weak Match (<45%)**: Significant skill gaps or mismatch in core requirements.
 
 ---
 
