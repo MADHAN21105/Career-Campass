@@ -417,7 +417,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 Final-Year Engineering Student | Java Backend Developer
 
 [![GitHub](https://img.shields.io/badge/GitHub-MADHAN21105-black?style=flat&logo=github)](https://github.com/MADHAN21105)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://linkedin.com/in/madhan-s)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/madhan-s11072005/)
 
 ---
 
