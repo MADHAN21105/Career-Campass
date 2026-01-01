@@ -90,9 +90,11 @@ graph LR
     C -->|3. Generate| D[Groq AI LLM]
     D --> E[Grounded Response]
     
-    style B fill:#e1bee7,stroke:#8e24aa,stroke-width:2px
-    style D fill:#fff9c4,stroke:#f57c00,stroke-width:2px
-    style E fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    style A fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style B fill:#d1c4e9,stroke:#673ab7,stroke-width:2px,color:#000
+    style C fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style D fill:#ffe0b2,stroke:#ff6f00,stroke-width:2px,color:#000
+    style E fill:#a5d6a7,stroke:#2e7d32,stroke-width:2px,color:#000
 ```
 
 ### How RAG Works:
@@ -124,9 +126,17 @@ graph TD
         J -->|Generate| K[Expert Career Advice]
     end
 
-    style D fill:#e1bee7,stroke:#8e24aa,stroke-width:3px
-    style J fill:#fff9c4,stroke:#f57c00,stroke-width:3px
-    style K fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    style A fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style B fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style C fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style D fill:#d1c4e9,stroke:#673ab7,stroke-width:3px,color:#000
+    style E fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style F fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style G fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style H fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style I fill:#fff,stroke:#333,stroke-width:2px,color:#000
+    style J fill:#ffe0b2,stroke:#ff6f00,stroke-width:3px,color:#000
+    style K fill:#a5d6a7,stroke:#2e7d32,stroke-width:2px,color:#000
 ```
 
 ---
@@ -189,9 +199,9 @@ graph TB
         EMB <-->|Embeddings| GEM[💎 Gemini API]
     end
 
-    classDef primary fill:#e3f2fd,stroke:#1976d2,stroke-width:2px;
-    classDef database fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
-    classDef cloud fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+    classDef primary fill:#bbdefb,stroke:#1565c0,stroke-width:2px,color:#000;
+    classDef database fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px,color:#000;
+    classDef cloud fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px,color:#000;
     
     class FE,CTL,SVC,Core primary;
     class PINE database;
